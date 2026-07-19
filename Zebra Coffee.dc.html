@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/jpeg" href="https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/Screenshot_20260719_221854_Instagram.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#ffffff;font-family:'Manrope',system-ui,sans-serif;color:#0f2b30;-webkit-font-smoothing:antialiased}
+  a{color:#0b7c8d;text-decoration:none}
+  a:hover{color:#075662}
+  @keyframes zcfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes zcmarq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .zc-page{animation:zcfade .5s ease both}
+  .zc-navlink:hover{color:#075662 !important}
+  .zc-card{transition:transform .25s ease, box-shadow .25s ease}
+  .zc-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(8,91,104,.18)}
+  .zc-btn{transition:transform .15s ease, opacity .2s ease}
+  .zc-btn:hover{transform:translateY(-2px);opacity:.94}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column">
+
+  <!-- ===================== NAV ===================== -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #e4eef0">
+    <div style="max-width:1200px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a onClick="{{ goHome }}" style="cursor:pointer;display:flex;align-items:center;gap:11px">
+        <img src="https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/Screenshot_20260719_221854_Instagram.jpg" alt="Zebra Coffee" style="width:48px;height:48px;border-radius:50%;object-fit:cover;box-shadow:0 2px 8px rgba(6,60,68,.15)">
+        <span style="display:flex;flex-direction:column;line-height:1">
+          <span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;letter-spacing:.14em;color:#0f2b30">ZEBRA</span>
+          <span style="font-size:9.5px;letter-spacing:.42em;color:#0b7c8d;font-weight:700;margin-top:2px">COFFEE</span>
+        </span>
+      </a>
+      <nav style="display:flex;gap:30px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+          <a class="zc-navlink" onClick="{{ n.on }}" style="cursor:pointer;font-size:14.5px;font-weight:700;color:{{ n.color }}">{{ n.label }}</a>
+        </sc-for>
+      </nav>
+      <div style="display:flex;align-items:center;gap:18px">
+        <div style="display:flex;gap:3px;align-items:center;font-size:12.5px;font-weight:700">
+          <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3">
+            <a onClick="{{ l.on }}" style="cursor:pointer;padding:4px 7px;border-radius:6px;color:{{ l.color }};background:{{ l.bg }}">{{ l.label }}</a>
+          </sc-for>
+        </div>
+        <a onClick="{{ goMenu }}" class="zc-btn" style="cursor:pointer;background:#13a2b5;color:#fff;font-weight:800;font-size:13.5px;padding:11px 20px;border-radius:100px">{{ t.navCta }}</a>
+      </div>
+    </div>
+  </header>
+
+  <main style="flex:1">
+
+    <!-- ===================== HOME ===================== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div class="zc-page">
+        <!-- hero -->
+        <section style="position:relative;background:#13a2b5;color:#fff;overflow:hidden">
+          <sc-if value="{{ hasBgVideo }}" hint-placeholder-val="{{ false }}">
+            <video ref="{{ bgVideoRef }}" src="{{ bgVideoUrl }}" autoplay loop muted playsinline onEnded="{{ replayVideo }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+            <div style="position:absolute;inset:0;background:linear-gradient(105deg,rgba(11,124,141,.9) 0%,rgba(19,162,181,.78) 45%,rgba(7,86,98,.62) 100%)"></div>
+          </sc-if>
+          <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.07' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+          <div style="position:relative;max-width:1200px;margin:0 auto;padding:76px 28px 84px;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center">
+            <div>
+              <div style="display:inline-block;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;background:rgba(255,255,255,.16);padding:8px 15px;border-radius:100px">{{ t.heroEyebrow }}</div>
+              <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:64px;line-height:1.02;margin:24px 0 0;letter-spacing:-.01em">{{ t.heroTitle }}</h1>
+              <p style="font-size:18px;line-height:1.6;color:rgba(255,255,255,.92);max-width:460px;margin:22px 0 0">{{ t.heroSub }}</p>
+              <div style="display:flex;gap:14px;margin-top:34px;flex-wrap:wrap">
+                <a onClick="{{ goMenu }}" class="zc-btn" style="cursor:pointer;background:#fff;color:#0b7c8d;font-weight:800;font-size:15px;padding:16px 30px;border-radius:100px">{{ t.heroCta1 }}</a>
+                <a onClick="{{ goLocations }}" class="zc-btn" style="cursor:pointer;border:1.5px solid rgba(255,255,255,.55);color:#fff;font-weight:700;font-size:15px;padding:16px 30px;border-radius:100px">{{ t.heroCta2 }}</a>
+              </div>
+              <div style="display:flex;gap:36px;margin-top:46px">
+                <div><div style="font-family:'Montserrat',sans-serif;font-size:30px;font-weight:900">3</div><div style="font-size:12.5px;color:rgba(255,255,255,.8);font-weight:600">{{ t.statBranches }}</div></div>
+                <div><div style="font-family:'Montserrat',sans-serif;font-size:30px;font-weight:900">30+</div><div style="font-size:12.5px;color:rgba(255,255,255,.8);font-weight:600">{{ t.statDrinks }}</div></div>
+              </div>
+            </div>
+            <div style="position:relative">
+              <div style="position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px rgba(6,60,68,.4)">
+                <sc-if value="{{ hasHeroVideo }}" hint-placeholder-val="{{ false }}">
+                  <video src="{{ heroVideoUrl }}" autoplay loop muted playsinline poster="{{ heroPoster }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+                </sc-if>
+                <sc-if value="{{ noHeroVideo }}" hint-placeholder-val="{{ true }}">
+                  <image-slot id="zc-hero" src="https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/Screenshot_20260719_214711_Instagram.jpg" shape="rect" placeholder="Hero foto — imza içki / məkan"></image-slot>
+                </sc-if>
+              </div>
+              <div style="position:absolute;bottom:-18px;left:-18px;background:#fff;color:#0f2b30;padding:14px 20px;border-radius:16px;box-shadow:0 14px 34px rgba(6,60,68,.25)">
+                <div style="font-size:11px;color:#0b7c8d;font-weight:800;letter-spacing:.08em">{{ t.openNow }}</div>
+                <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800">07:30 — 23:00</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- marquee -->
+        <div style="background:#0b7c8d;color:#fff;padding:15px 0;overflow:hidden;white-space:nowrap">
+          <div style="display:inline-block;font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;letter-spacing:.05em;animation:zcmarq 26s linear infinite">
+            <span style="padding:0 14px">ESPRESSO</span>✦<span style="padding:0 14px">CAPPUCCINO</span>✦<span style="padding:0 14px">RAF</span>✦<span style="padding:0 14px">FLAT WHITE</span>✦<span style="padding:0 14px">COLD BREW</span>✦<span style="padding:0 14px">MATCHA</span>✦<span style="padding:0 14px">LIMONAD</span>✦<span style="padding:0 14px">MILKSHAKE</span>✦<span style="padding:0 14px">ESPRESSO</span>✦<span style="padding:0 14px">CAPPUCCINO</span>✦<span style="padding:0 14px">RAF</span>✦<span style="padding:0 14px">FLAT WHITE</span>✦<span style="padding:0 14px">COLD BREW</span>✦<span style="padding:0 14px">MATCHA</span>✦<span style="padding:0 14px">LIMONAD</span>✦<span style="padding:0 14px">MILKSHAKE</span>✦
+          </div>
+        </div>
+
+        <!-- highlights -->
+        <section style="max-width:1200px;margin:0 auto;padding:76px 28px">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:34px;gap:20px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:13px;font-weight:800;letter-spacing:.16em;color:#0b7c8d;text-transform:uppercase">{{ t.highlightEyebrow }}</div>
+              <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:42px;margin:10px 0 0">{{ t.highlightTitle }}</h2>
+            </div>
+            <a onClick="{{ goMenu }}" class="zc-btn" style="cursor:pointer;font-size:14.5px;font-weight:800;color:#0b7c8d">{{ t.fullMenu }} →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+            <sc-for list="{{ highlights }}" as="h" hint-placeholder-count="6">
+              <div class="zc-card" style="background:#fff;border:1px solid #e4eef0;border-radius:20px;overflow:hidden">
+                <div style="position:relative;aspect-ratio:16/11;background:#e8f4f5">
+                  <image-slot id="{{ h.slot }}" src="{{ h.img }}" shape="rect" placeholder="{{ h.name }} foto"></image-slot>
+                  <span style="position:absolute;top:12px;left:12px;font-size:11px;font-weight:800;letter-spacing:.05em;color:#fff;background:#13a2b5;padding:5px 11px;border-radius:100px">{{ h.tag }}</span>
+                </div>
+                <div style="padding:22px">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                    <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px">{{ h.name }}</div>
+                    <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:#0b7c8d;white-space:nowrap">{{ h.price }}</div>
+                  </div>
+                  <p style="font-size:14px;color:#5a7c80;margin:8px 0 0;line-height:1.55">{{ h.desc }}</p>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- category quick nav -->
+        <section style="background:#f0f8f9;padding:70px 0">
+          <div style="max-width:1200px;margin:0 auto;padding:0 28px">
+            <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:36px;margin:0 0 8px;text-align:center">{{ t.catNavTitle }}</h2>
+            <p style="text-align:center;color:#5a7c80;margin:0 0 34px;font-size:16px">{{ t.catNavSub }}</p>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+              <sc-for list="{{ catNav }}" as="c" hint-placeholder-count="8">
+                <a onClick="{{ goMenu }}" class="zc-card" style="cursor:pointer;background:#fff;border:1px solid #e4eef0;border-radius:16px;padding:22px 20px;display:block">
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px">{{ c.title }}</div>
+                  <div style="font-size:13px;color:#5a7c80;margin-top:5px">{{ c.count }}</div>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+
+        <!-- locations strip -->
+        <section style="max-width:1200px;margin:0 auto;padding:76px 28px">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:30px;flex-wrap:wrap;gap:16px">
+            <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:38px;margin:0">{{ t.locTitle }}</h2>
+            <a onClick="{{ goLocations }}" class="zc-btn" style="cursor:pointer;font-size:14.5px;font-weight:800;color:#0b7c8d">{{ t.allBranches }} →</a>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+            <sc-for list="{{ branches }}" as="b" hint-placeholder-count="3">
+              <div class="zc-card" style="background:#13a2b5;color:#fff;border-radius:20px;padding:28px;position:relative;overflow:hidden">
+                <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.09' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+                <div style="position:relative">
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px">{{ b.name }}</div>
+                  <div style="font-size:15px;color:rgba(255,255,255,.9);margin-top:8px">{{ b.address }}</div>
+                  <div style="font-size:13.5px;color:rgba(255,255,255,.8);margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.25)">{{ t.everyDay }} · 07:30 — 23:00</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- about teaser -->
+        <section style="background:#075662;color:#fff">
+          <div style="max-width:1200px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch">
+            <div style="padding:76px 40px 76px 0">
+              <div style="font-size:13px;font-weight:800;letter-spacing:.16em;color:#7fd3de;text-transform:uppercase">{{ t.aboutEyebrow }}</div>
+              <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:40px;margin:14px 0 0;line-height:1.1">{{ t.aboutTitle }}</h2>
+              <p style="font-size:16.5px;line-height:1.7;color:rgba(255,255,255,.86);margin:20px 0 0">{{ t.aboutP1 }}</p>
+              <a onClick="{{ goAbout }}" class="zc-btn" style="cursor:pointer;display:inline-block;margin-top:28px;background:#13a2b5;color:#fff;font-weight:800;font-size:14.5px;padding:14px 26px;border-radius:100px">{{ t.readMore }}</a>
+            </div>
+            <div style="position:relative;min-height:380px;margin:40px 0">
+              <image-slot id="zc-about-teaser" shape="rounded" radius="20" placeholder="Məkan / komanda fotosu"></image-slot>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- ===================== MENU ===================== -->
+    <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
+      <div class="zc-page">
+        <section style="background:#13a2b5;color:#fff;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.07' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+          <div style="position:relative;max-width:1200px;margin:0 auto;padding:60px 28px 54px;text-align:center">
+            <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:52px;margin:0">{{ t.menuTitle }}</h1>
+            <p style="font-size:17px;color:rgba(255,255,255,.9);margin:14px 0 0">{{ t.menuSub }}</p>
+          </div>
+        </section>
+
+        <div style="max-width:1120px;margin:0 auto;padding:64px 28px 20px">
+
+          <!-- COFFEE -->
+          <div style="margin-bottom:64px">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;border-bottom:3px solid #13a2b5;padding-bottom:12px;margin-bottom:26px">{{ t.catCoffee }}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 34px">
+              <sc-for list="{{ coffee }}" as="c" hint-placeholder-count="7">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px dashed #d4e6e8">
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px">{{ c.n }}</div>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+                    <sc-for list="{{ c.sizes }}" as="s" hint-placeholder-count="3">
+                      <span style="background:#eef7f8;border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:700;color:#0b7c8d;white-space:nowrap"><span style="color:#7a9a9e;font-weight:600">{{ s.s }}</span> · {{ s.p }}</span>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- SPECIAL -->
+          <div style="margin-bottom:64px">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;border-bottom:3px solid #13a2b5;padding-bottom:12px;margin-bottom:8px">{{ t.catSpecial }}</div>
+            <div style="font-size:14px;color:#5a7c80;margin-bottom:22px">360 ml</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+              <sc-for list="{{ special }}" as="s" hint-placeholder-count="3">
+                <div class="zc-card" style="background:#fff;border:1px solid #e4eef0;border-radius:18px;padding:24px">
+                  <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+                    <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px">{{ s.n }}</div>
+                    <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;color:#0b7c8d">{{ s.p }}</div>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px">
+                    <sc-for list="{{ s.sub }}" as="f" hint-placeholder-count="3">
+                      <span style="background:#eef7f8;color:#0b7c8d;font-size:12px;font-weight:700;padding:5px 10px;border-radius:100px">{{ f }}</span>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- SPECIALTY -->
+          <div style="margin-bottom:64px">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;border-bottom:3px solid #13a2b5;padding-bottom:12px;margin-bottom:22px">{{ t.catSpecialty }}</div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px">
+              <sc-for list="{{ specialty }}" as="s" hint-placeholder-count="2">
+                <div class="zc-card" style="background:#fff;border:1px solid #e4eef0;border-radius:18px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+                  <div>
+                    <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px">{{ s.n }}</div>
+                    <div style="font-size:13px;color:#5a7c80;margin-top:4px">{{ s.size }}</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:12px">
+                      <sc-for list="{{ s.sub }}" as="f" hint-placeholder-count="0">
+                        <span style="background:#eef7f8;color:#0b7c8d;font-size:12px;font-weight:700;padding:5px 10px;border-radius:100px">{{ f }}</span>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;color:#0b7c8d;white-space:nowrap">{{ s.p }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- ICE LATTE -->
+          <div style="margin-bottom:64px">
+            <div style="background:#075662;color:#fff;border-radius:22px;padding:34px;position:relative;overflow:hidden">
+              <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.08' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+              <div style="position:relative">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:10px">
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:28px">Ice Latte / Ice Cappuccino</div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;color:#7fd3de">350 ml · 4.90 ₼</div>
+                </div>
+                <div style="font-size:14px;color:#bfe6ec;font-weight:700;letter-spacing:.05em;margin:22px 0 12px;text-transform:uppercase">{{ t.flavours }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:9px">
+                  <sc-for list="{{ iceFlavors }}" as="f" hint-placeholder-count="12">
+                    <span style="background:rgba(255,255,255,.14);color:#fff;font-size:13px;font-weight:700;padding:7px 13px;border-radius:100px">{{ f }}</span>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEASONAL -->
+          <div style="margin-bottom:64px">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;border-bottom:3px solid #13a2b5;padding-bottom:12px;margin-bottom:22px">{{ t.catSeasonal }}</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+              <sc-for list="{{ seasonal }}" as="s" hint-placeholder-count="6">
+                <div class="zc-card" style="background:#fff;border:1px solid #e4eef0;border-radius:16px;padding:20px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <div><div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16.5px">{{ s.n }}</div><div style="font-size:12.5px;color:#5a7c80;margin-top:3px">{{ s.size }}</div></div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;color:#0b7c8d;white-space:nowrap">{{ s.p }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- MATCHA + LEMONADES -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-bottom:64px">
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;border-bottom:3px solid #13a2b5;padding-bottom:10px;margin-bottom:18px">{{ t.catMatcha }}</div>
+              <sc-for list="{{ matcha }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed #d4e6e8">
+                  <div><div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px">{{ m.n }}</div><div style="font-size:12px;color:#5a7c80">{{ m.size }}</div></div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:15.5px;color:#0b7c8d">{{ m.p }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;border-bottom:3px solid #13a2b5;padding-bottom:10px;margin-bottom:18px">
+                <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px">{{ t.catLemonades }}</div>
+                <div style="font-size:13px;font-weight:800;color:#0b7c8d">350 ml · 3.60 ₼</div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:9px">
+                <sc-for list="{{ lemonades }}" as="l" hint-placeholder-count="4">
+                  <span style="background:#eef7f8;color:#0b7c8d;font-size:13.5px;font-weight:700;padding:9px 14px;border-radius:100px">{{ l }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <!-- KIDS + MILKSHAKES -->
+          <div style="margin-bottom:40px">
+            <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;border-bottom:3px solid #13a2b5;padding-bottom:12px;margin-bottom:22px">{{ t.catKids }}</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:26px">
+              <sc-for list="{{ kids }}" as="k" hint-placeholder-count="4">
+                <div class="zc-card" style="background:#fff;border:1px solid #e4eef0;border-radius:16px;padding:20px;text-align:center">
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px">{{ k.n }}</div>
+                  <div style="font-size:12px;color:#5a7c80;margin-top:4px">{{ k.size }}</div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16px;color:#0b7c8d;margin-top:10px">{{ k.p }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#f0f8f9;border-radius:18px;padding:26px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px">
+                <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px">Milkshakes</div>
+                <div style="font-size:13px;font-weight:800;color:#0b7c8d">350 ml · 3.60 ₼</div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:9px">
+                <sc-for list="{{ milkshakes }}" as="m" hint-placeholder-count="4">
+                  <span style="background:#fff;border:1px solid #d4e6e8;color:#0b7c8d;font-size:13.5px;font-weight:700;padding:9px 14px;border-radius:100px">{{ m }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <p style="text-align:center;color:#7a9a9e;font-size:13px;margin:0 0 20px">{{ t.priceNote }}</p>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ===================== ABOUT ===================== -->
+    <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+      <div class="zc-page">
+        <section style="background:#13a2b5;color:#fff;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.07' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+          <div style="position:relative;max-width:900px;margin:0 auto;padding:68px 28px;text-align:center">
+            <div style="font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85)">{{ t.aboutEyebrow }}</div>
+            <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:50px;margin:14px 0 0">{{ t.aboutTitle }}</h1>
+          </div>
+        </section>
+        <section style="max-width:1000px;margin:0 auto;padding:66px 28px">
+          <div style="position:relative;aspect-ratio:16/8;border-radius:22px;overflow:hidden;margin-bottom:44px">
+            <image-slot id="zc-about-main" shape="rect" placeholder="Kofehana / komanda fotosu"></image-slot>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+            <p style="font-size:17px;line-height:1.8;color:#33565b;margin:0">{{ t.aboutP1 }}</p>
+            <p style="font-size:17px;line-height:1.8;color:#33565b;margin:0">{{ t.aboutP2 }}</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px">
+            <sc-for list="{{ values }}" as="v" hint-placeholder-count="3">
+              <div style="background:#f0f8f9;border-radius:18px;padding:28px">
+                <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;color:#13a2b5">{{ v.stat }}</div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:17px;margin-top:8px">{{ v.title }}</div>
+                <p style="font-size:14px;color:#5a7c80;margin:8px 0 0;line-height:1.55">{{ v.desc }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- ===================== LOCATIONS ===================== -->
+    <sc-if value="{{ isLocations }}" hint-placeholder-val="{{ false }}">
+      <div class="zc-page">
+        <section style="background:#13a2b5;color:#fff;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.07' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+          <div style="position:relative;max-width:1200px;margin:0 auto;padding:60px 28px 54px;text-align:center">
+            <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:52px;margin:0">{{ t.locPageTitle }}</h1>
+            <p style="font-size:17px;color:rgba(255,255,255,.9);margin:14px 0 0">{{ t.locPageSub }}</p>
+          </div>
+        </section>
+        <section style="max-width:1120px;margin:0 auto;padding:64px 28px">
+          <div style="display:flex;flex-direction:column;gap:28px">
+            <sc-for list="{{ branches }}" as="b" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:0;border:1px solid #e4eef0;border-radius:22px;overflow:hidden;background:#fff">
+                <div style="padding:34px 34px 34px 34px;display:flex;flex-direction:column;justify-content:center">
+                  <div style="font-size:12px;font-weight:800;letter-spacing:.14em;color:#0b7c8d;text-transform:uppercase">{{ t.branch }} {{ b.idx }}</div>
+                  <div style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;margin:10px 0 0">{{ b.name }}</div>
+                  <div style="font-size:16px;color:#33565b;margin-top:12px;display:flex;gap:8px"><span style="color:#13a2b5;font-weight:800">◉</span>{{ b.address }}</div>
+                  <div style="font-size:15px;color:#5a7c80;margin-top:8px;display:flex;gap:8px"><span style="color:#13a2b5;font-weight:800">◷</span>{{ t.everyDay }} · 07:30 — 23:00</div>
+                  <a href="{{ b.map }}" target="_blank" class="zc-btn" style="display:inline-block;width:max-content;margin-top:22px;background:#13a2b5;color:#fff;font-weight:800;font-size:14px;padding:12px 22px;border-radius:100px">{{ t.getDirections }} →</a>
+                </div>
+                <div style="position:relative;min-height:260px;background:#e8f4f5">
+                  <image-slot id="{{ b.slot }}" shape="rect" placeholder="Xəritə / məkan fotosu"></image-slot>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- ===================== CONTACT ===================== -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+      <div class="zc-page">
+        <section style="background:#13a2b5;color:#fff;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='130'%3E%3Cpath d='M32 65c0-18 15-33 33-33s33 15 33 33-14 27-30 27-24-11-24-22 8-17 16-17 13 6 13 13' fill='none' stroke='white' stroke-opacity='.07' stroke-width='3'/%3E%3C/svg%3E&quot;)"></div>
+          <div style="position:relative;max-width:900px;margin:0 auto;padding:60px 28px 54px;text-align:center">
+            <h1 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:52px;margin:0">{{ t.contactTitle }}</h1>
+            <p style="font-size:17px;color:rgba(255,255,255,.9);margin:14px 0 0">{{ t.contactSub }}</p>
+          </div>
+        </section>
+        <section style="max-width:1080px;margin:0 auto;padding:64px 28px;display:grid;grid-template-columns:1fr 1fr;gap:48px">
+          <div>
+            <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;margin:0 0 22px">{{ t.writeUs }}</h2>
+            <form onSubmit="{{ onSubmit }}" style="display:flex;flex-direction:column;gap:14px">
+              <input required placeholder="{{ t.fieldName }}" style="border:1px solid #d4e6e8;border-radius:12px;padding:14px 16px;font-size:15px;font-family:inherit;outline:none">
+              <input required placeholder="{{ t.fieldPhone }}" style="border:1px solid #d4e6e8;border-radius:12px;padding:14px 16px;font-size:15px;font-family:inherit;outline:none">
+              <textarea required rows="4" placeholder="{{ t.fieldMsg }}" style="border:1px solid #d4e6e8;border-radius:12px;padding:14px 16px;font-size:15px;font-family:inherit;outline:none;resize:vertical"></textarea>
+              <button type="submit" class="zc-btn" style="cursor:pointer;background:#13a2b5;color:#fff;font-weight:800;font-size:15px;padding:15px;border:none;border-radius:100px">{{ t.send }}</button>
+              <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#e6f6ee;color:#127c4a;font-weight:700;font-size:14px;padding:13px 16px;border-radius:12px">{{ t.sentMsg }}</div>
+              </sc-if>
+            </form>
+          </div>
+          <div>
+            <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:26px;margin:0 0 22px">{{ t.contactInfo }}</h2>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="background:#f0f8f9;border-radius:16px;padding:20px"><div style="font-size:12px;font-weight:800;color:#0b7c8d;letter-spacing:.08em;text-transform:uppercase">Instagram</div><a href="https://instagram.com/zebracoffee.aze" target="_blank" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;margin-top:5px;display:inline-block">@zebracoffee.aze</a></div>
+              <div style="background:#f0f8f9;border-radius:16px;padding:20px"><div style="font-size:12px;font-weight:800;color:#0b7c8d;letter-spacing:.08em;text-transform:uppercase">{{ t.hours }}</div><div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;margin-top:5px">{{ t.everyDay }} · 07:30 — 23:00</div></div>
+              <div style="background:#f0f8f9;border-radius:16px;padding:20px"><div style="font-size:12px;font-weight:800;color:#0b7c8d;letter-spacing:.08em;text-transform:uppercase">{{ t.branches3 }}</div>
+                <div style="font-size:15px;color:#33565b;margin-top:8px;line-height:1.7">Xəqani küç. 66<br>Həsən Əliyev küç. 389<br>Fətəli xan Xoyski pr. 73A</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background:#062f37;color:#cfe6ea;padding:56px 0 28px">
+    <div style="max-width:1200px;margin:0 auto;padding:0 28px">
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px">
+        <div>
+          <div style="display:flex;align-items:center;gap:11px">
+            <img src="https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/Screenshot_20260719_221854_Instagram.jpg" alt="Zebra Coffee" style="width:48px;height:48px;border-radius:50%;object-fit:cover">
+            <span style="display:flex;flex-direction:column;line-height:1"><span style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:18px;letter-spacing:.14em;color:#fff">ZEBRA</span><span style="font-size:9.5px;letter-spacing:.42em;color:#7fd3de;font-weight:700;margin-top:2px">COFFEE</span></span>
+          </div>
+          <p style="font-size:14px;line-height:1.6;color:#8fb6bd;margin:18px 0 0;max-width:280px">{{ t.footerTag }}</p>
+        </div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:14px">{{ t.footerNav }}</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+              <a onClick="{{ n.on }}" style="cursor:pointer;font-size:14px;color:#8fb6bd">{{ n.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:14px">{{ t.hours }}</div>
+          <div style="font-size:14px;color:#8fb6bd;line-height:1.7">{{ t.everyDay }}<br>07:30 — 23:00</div>
+        </div>
+        <div>
+          <div style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;color:#fff;margin-bottom:14px">{{ t.footerFollow }}</div>
+          <a href="https://instagram.com/zebracoffee.aze" target="_blank" style="font-size:14px;color:#8fb6bd">@zebracoffee.aze</a>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,.12);margin-top:38px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:#6f9aa1">
+        <span>© 2026 Zebra Coffee Azerbaijan</span>
+        <span>Bakı</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900},&quot;bgVideoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/VID_20260719_103546_662.mp4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroVideoUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;heroPoster&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', lang: 'az', sent: false };
+
+  TR = {
+    az: {
+      nav: { home:'Ana səhifə', menu:'Menyu', about:'Haqqımızda', locations:'Filiallar', contact:'Əlaqə' },
+      navCta:'Menyu',
+      heroEyebrow:'Bakı · Ekspres kofe şəbəkəsi', heroTitle:'Hər qurtum bir ritm.',
+      heroSub:'Təzə qovrulmuş dənələr, sürətli servis və isti atmosfer. Hər gün səhər 07:30-dan gecə 23:00-a kimi.',
+      heroCta1:'Menyuya bax', heroCta2:'Filiallar',
+      statBranches:'Filial', statDrinks:'İçki növü', statFollowers:'İzləyici',
+      openNow:'AÇIQDIR', everyDay:'Hər gün',
+      highlightEyebrow:'Sevimliləriniz', highlightTitle:'Seçilmiş içkilər', fullMenu:'Bütün menyu',
+      catNavTitle:'Menyu kateqoriyaları', catNavSub:'İstədiyinizi tez tapın — qəhvədən limonada qədər.',
+      locTitle:'Bizi tapın', allBranches:'Bütün filiallar',
+      aboutEyebrow:'Haqqımızda', aboutTitle:'Bizim hekayəmiz',
+      aboutP1:'Zebra Coffee Bakıda fəaliyyət göstərən ekspres kofe çeşidləri şəbəkəsidir. Biz təzə qovrulmuş dənələr, dəqiq resept və sürətli servisi bir araya gətiririk — həm səhər tələsik anlarında, həm də rahat söhbətlərdə.',
+      aboutP2:'Klassik espressodan mövsümi içkilərə, matça və limonadlardan uşaq içkilərinə qədər hər zövqə uyğun 30-dan çox variant. Şəhərin üç nöqtəsində eyni keyfiyyət, eyni istilik.',
+      readMore:'Ətraflı',
+      menuTitle:'Menyu', menuSub:'Bütün qiymətlər Azərbaycan manatı (₼) ilə göstərilib.',
+      catCoffee:'Qəhvə menyusu', catSpecial:'Xüsusi içkilər', catSpecialty:'Specialty Coffee',
+      catSeasonal:'Mövsümi içkilər', catMatcha:'Matça çayı', catLemonades:'Limonadlar', catKids:'Uşaq içkiləri',
+      flavours:'Dad seçimləri', priceNote:'Qiymətlər dəyişə bilər. Ən dəqiq məlumat üçün filialla əlaqə saxlayın.',
+      locPageTitle:'Filiallar', locPageSub:'Bakının üç nöqtəsində sizi gözləyirik.',
+      branch:'Filial', getDirections:'Yol tarifi',
+      values:[],
+      contactTitle:'Əlaqə', contactSub:'Sual, təklif və ya əməkdaşlıq üçün bizə yazın.',
+      writeUs:'Bizə yazın', fieldName:'Adınız', fieldPhone:'Telefon nömrəniz', fieldMsg:'Mesajınız', send:'Göndər',
+      sentMsg:'Təşəkkürlər! Mesajınız qeydə alındı.', contactInfo:'Əlaqə məlumatları', hours:'İş saatları', branches3:'Filiallar',
+      footerTag:'Bakının ekspres kofe şəbəkəsi. Təzə, sürətli, isti.', footerNav:'Naviqasiya', footerFollow:'İzləyin', since:'2017-dən bəri', sinceWord:'2017-dən bəri'
+    },
+    en: {
+      nav: { home:'Home', menu:'Menu', about:'About', locations:'Locations', contact:'Contact' },
+      navCta:'Menu',
+      heroEyebrow:'Baku · Espresso coffee network', heroTitle:'Every sip has a rhythm.',
+      heroSub:'Freshly roasted beans, fast service and a warm vibe. Every day from 07:30 to 23:00.',
+      heroCta1:'View menu', heroCta2:'Locations',
+      statBranches:'Branches', statDrinks:'Drinks', statFollowers:'Followers',
+      openNow:'OPEN NOW', everyDay:'Every day',
+      highlightEyebrow:'Your favourites', highlightTitle:'Featured drinks', fullMenu:'Full menu',
+      catNavTitle:'Menu categories', catNavSub:'Find what you crave — from coffee to lemonade.',
+      locTitle:'Find us', allBranches:'All branches',
+      aboutEyebrow:'About us', aboutTitle:'Our story',
+      aboutP1:'Zebra Coffee is an espresso coffee network operating in Baku. We bring together freshly roasted beans, precise recipes and fast service — for both rushed mornings and relaxed conversations.',
+      aboutP2:'From classic espresso to seasonal drinks, from matcha and lemonades to kids drinks — over 30 options for every taste. The same quality and warmth at three points across the city.',
+      readMore:'Read more',
+      menuTitle:'Menu', menuSub:'All prices are shown in Azerbaijani manat (₼).',
+      catCoffee:'Coffee menu', catSpecial:'Special drinks', catSpecialty:'Specialty Coffee',
+      catSeasonal:'Seasonal drinks', catMatcha:'Matcha tea', catLemonades:'Lemonades', catKids:'Kids drinks',
+      flavours:'Flavour options', priceNote:'Prices may change. Contact the branch for the latest information.',
+      locPageTitle:'Locations', locPageSub:'We are waiting for you at three points in Baku.',
+      branch:'Branch', getDirections:'Get directions',
+      values:[],
+      contactTitle:'Contact', contactSub:'Write to us for questions, suggestions or partnership.',
+      writeUs:'Write to us', fieldName:'Your name', fieldPhone:'Your phone', fieldMsg:'Your message', send:'Send',
+      sentMsg:'Thank you! Your message has been received.', contactInfo:'Contact info', hours:'Working hours', branches3:'Branches',
+      footerTag:"Baku's espresso coffee network. Fresh, fast, warm.", footerNav:'Navigation', footerFollow:'Follow us', since:'Since', sinceWord:'Since'
+    },
+    ru: {
+      nav: { home:'Главная', menu:'Меню', about:'О нас', locations:'Филиалы', contact:'Контакты' },
+      navCta:'Меню',
+      heroEyebrow:'Баку · Сеть эспрессо-кофе', heroTitle:'В каждом глотке — свой ритм.',
+      heroSub:'Свежеобжаренные зёрна, быстрый сервис и тёплая атмосфера. Каждый день с 07:30 до 23:00.',
+      heroCta1:'Смотреть меню', heroCta2:'Филиалы',
+      statBranches:'Филиала', statDrinks:'Напитков', statFollowers:'Подписчиков',
+      openNow:'ОТКРЫТО', everyDay:'Каждый день',
+      highlightEyebrow:'Ваши любимые', highlightTitle:'Избранные напитки', fullMenu:'Всё меню',
+      catNavTitle:'Категории меню', catNavSub:'Найдите то, что хочется — от кофе до лимонада.',
+      locTitle:'Найдите нас', allBranches:'Все филиалы',
+      aboutEyebrow:'О нас', aboutTitle:'Наша история',
+      aboutP1:'Zebra Coffee — сеть эспрессо-кофе, работающая в Баку. Мы объединяем свежеобжаренные зёрна, точные рецепты и быстрый сервис — как для спешного утра, так и для спокойных бесед.',
+      aboutP2:'От классического эспрессо до сезонных напитков, от матчи и лимонадов до детских напитков — более 30 вариантов на любой вкус. Одинаковое качество и тепло в трёх точках города.',
+      readMore:'Подробнее',
+      menuTitle:'Меню', menuSub:'Все цены указаны в азербайджанских манатах (₼).',
+      catCoffee:'Кофе меню', catSpecial:'Специальные напитки', catSpecialty:'Specialty Coffee',
+      catSeasonal:'Сезонные напитки', catMatcha:'Матча', catLemonades:'Лимонады', catKids:'Детские напитки',
+      flavours:'Варианты вкусов', priceNote:'Цены могут меняться. Уточняйте актуальную информацию в филиале.',
+      locPageTitle:'Филиалы', locPageSub:'Ждём вас в трёх точках Баку.',
+      branch:'Филиал', getDirections:'Маршрут',
+      values:[],
+      contactTitle:'Контакты', contactSub:'Напишите нам по вопросам, предложениям или сотрудничеству.',
+      writeUs:'Напишите нам', fieldName:'Ваше имя', fieldPhone:'Ваш телефон', fieldMsg:'Ваше сообщение', send:'Отправить',
+      sentMsg:'Спасибо! Ваше сообщение получено.', contactInfo:'Контактная информация', hours:'Часы работы', branches3:'Филиалы',
+      footerTag:'Сеть эспрессо-кофе в Баку. Свежо, быстро, тепло.', footerNav:'Навигация', footerFollow:'Мы в соцсетях', since:'С', sinceWord:'С'
+    }
+  };
+
+  VALUES = {
+    az:[{stat:'07:30',title:'Hər gün açıq',desc:'Səhər 07:30-dan gecə 23:00-a kimi.'},{stat:'3',title:'Filial',desc:'Şəhərin mərkəzi nöqtələrində.'},{stat:'30+',title:'İçki növü',desc:'Qəhvə, matça, limonad və daha çox.'}],
+    en:[{stat:'07:30',title:'Open daily',desc:'From 07:30 in the morning to 23:00.'},{stat:'3',title:'Branches',desc:'At the central points of the city.'},{stat:'30+',title:'Drinks',desc:'Coffee, matcha, lemonade and more.'}],
+    ru:[{stat:'07:30',title:'Открыто ежедневно',desc:'С 07:30 утра до 23:00.'},{stat:'3',title:'Филиала',desc:'В центральных точках города.'},{stat:'30+',title:'Напитков',desc:'Кофе, матча, лимонад и другое.'}]
+  };
+
+  BRANCHES = [
+    { idx:'01', name:'Xəqani', address:'Xəqani küç. 66', slot:'zc-map-1', map:'https://www.google.com/maps/search/?api=1&query=Xaqani+66+Baku' },
+    { idx:'02', name:'Həsən Əliyev', address:'Həsən Əliyev küç. 389', slot:'zc-map-2', map:'https://www.google.com/maps/search/?api=1&query=Hasan+Aliyev+389+Baku' },
+    { idx:'03', name:'Fətəli xan Xoyski', address:'Fətəli xan Xoyski pr. 73A', slot:'zc-map-3', map:'https://www.google.com/maps/search/?api=1&query=Fatali+Khan+Khoyski+73A+Baku' }
+  ];
+
+  COFFEE = [
+    { n:'Latte', sizes:[{s:'250 ml',p:'3.60 ₼'},{s:'360 ml',p:'4.20 ₼'},{s:'480 ml',p:'4.60 ₼'}] },
+    { n:'Cappuccino', sizes:[{s:'250 ml',p:'3.60 ₼'},{s:'360 ml',p:'4.20 ₼'},{s:'480 ml',p:'4.60 ₼'}] },
+    { n:'Americano', sizes:[{s:'250 ml',p:'2.90 ₼'},{s:'360 ml',p:'3.50 ₼'},{s:'480 ml',p:'4.00 ₼'}] },
+    { n:'Raf', sizes:[{s:'250 ml',p:'4.90 ₼'},{s:'360 ml',p:'5.40 ₼'},{s:'480 ml',p:'5.90 ₼'}] },
+    { n:'Mocaccino', sizes:[{s:'250 ml',p:'4.00 ₼'},{s:'360 ml',p:'4.90 ₼'},{s:'480 ml',p:'5.40 ₼'}] },
+    { n:'Flat White', sizes:[{s:'250 ml',p:'4.00 ₼'}] },
+    { n:'Espresso', sizes:[{s:'30 ml',p:'2.00 ₼'},{s:'60 ml',p:'2.50 ₼'}] }
+  ];
+  SPECIAL = [
+    { n:'Latte', p:'4.90 ₼', sub:['Nar','Qaragilə','İspan şaftalısı'] },
+    { n:'Raf', p:'5.90 ₼', sub:['Lavanda','Sitruslu','Fıstıq urbeçi','Ədviyyatlı'] },
+    { n:'Turan Coffee', p:'5.00 ₼', sub:[] }
+  ];
+  SPECIALTY = [
+    { n:'Batch Brew', size:'300 ml', p:'3.50 ₼', sub:[] },
+    { n:'Cold Brew', size:'350 ml', p:'4.90 ₼', sub:['Albalı','Şaftalı'] }
+  ];
+  ICE_FLAVORS = ['Manqo','Nanə','Fıstıq','Moruq','Amaretto','Qara qarağat','Fındıq','Albalı','Kokos','Yemiş','Armud','Şaftalı'];
+  SEASONAL = [
+    { n:'Espresso Tonic', size:'350 ml', p:'4.90 ₼' },
+    { n:'Ice Latte Pomegranate', size:'350 ml', p:'4.90 ₼' },
+    { n:'Bumble Coffee', size:'350 ml', p:'4.90 ₼' },
+    { n:'Ice Spanish Peach', size:'350 ml', p:'4.90 ₼' },
+    { n:'Ice Cherry', size:'350 ml', p:'4.90 ₼' },
+    { n:'Ice Tea Peach', size:'350 ml', p:'4.50 ₼' }
+  ];
+  MATCHA = [
+    { n:'Latte Green Matcha', size:'360 ml', p:'4.20 ₼' },
+    { n:'Latte Sakura Matcha', size:'360 ml', p:'4.20 ₼' },
+    { n:'Latte Blue Matcha', size:'360 ml', p:'4.50 ₼' }
+  ];
+  LEMONADES = ['Nar + Qızılgül','Tropik','5 Giləmeyvə','Qarpız + Çiyələk'];
+  KIDS = [
+    { n:'Kakao', size:'360 ml', p:'3.50 ₼' },
+    { n:'Oreo Şeyk', size:'350 ml', p:'4.90 ₼' },
+    { n:'İsti Şokolad', size:'360 ml', p:'3.90 ₼' },
+    { n:'Çiyələkli Kakao', size:'350 ml', p:'4.90 ₼' }
+  ];
+  MILKSHAKES = ['Honey Melon','Vanilla','Rainbow Unicorn','Banana'];
+
+  go(page) { this.setState({ page, sent:false }); if (typeof window!=='undefined') window.scrollTo({top:0}); }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = this.TR[lang] || this.TR.az;
+    const page = this.state.page;
+    const navIds = ['home','menu','about','locations','contact'];
+    const nav = navIds.map(id => ({
+      id, label:t.nav[id], on:()=>this.go(id),
+      color: page===id ? '#0b7c8d' : '#0f2b30'
+    }));
+    const langs = ['az','en','ru'].map(code => ({
+      code, label:code.toUpperCase(), on:()=>this.setState({lang:code}),
+      color: this.state.lang===code ? '#fff' : '#0b7c8d',
+      bg: this.state.lang===code ? '#13a2b5' : 'transparent'
+    }));
+
+    const highlightsByLang = {
+      az:[
+        {name:'Cappuccino',tag:'HIT',price:'4.20 ₼',desc:'Zərif süd köpüyü, balanslı espresso.',slot:'zc-h1'},
+        {name:'Raf',tag:'İMZA',price:'5.40 ₼',desc:'Vanil və qaymaqlı, yumşaq imza içki.',slot:'zc-h2',img:'https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/raf.png'},
+        {name:'Cold Brew',tag:'SPECIALTY',price:'4.90 ₼',desc:'Soyuq dəmlənmiş, albalı və şaftalı ilə.',slot:'zc-h3'},
+        {name:'Ice Latte Pomegranate',tag:'MÖVSÜMİ',price:'4.90 ₼',desc:'Buzlu latte, nar dadının təravəti ilə.',slot:'zc-h4'},
+        {name:'Blue Matcha Latte',tag:'YENİ',price:'4.50 ₼',desc:'Mavi matça, məxməri süd üzərində.',slot:'zc-h5'},
+        {name:'Rainbow Unicorn',tag:'MILKSHAKE',price:'3.60 ₼',desc:'Rəngarəng, uşaqların sevimlisi.',slot:'zc-h6'}
+      ],
+      en:[
+        {name:'Cappuccino',tag:'HIT',price:'4.20 ₼',desc:'Silky milk foam over balanced espresso.',slot:'zc-h1'},
+        {name:'Raf',tag:'SIGNATURE',price:'5.40 ₼',desc:'Soft signature drink with vanilla & cream.',slot:'zc-h2'},
+        {name:'Cold Brew',tag:'SPECIALTY',price:'4.90 ₼',desc:'Cold brewed, with cherry & peach.',slot:'zc-h3'},
+        {name:'Ice Latte Pomegranate',tag:'SEASONAL',price:'4.90 ₼',desc:'Iced latte with a fresh pomegranate twist.',slot:'zc-h4'},
+        {name:'Blue Matcha Latte',tag:'NEW',price:'4.50 ₼',desc:'Blue matcha over velvety milk.',slot:'zc-h5'},
+        {name:'Rainbow Unicorn',tag:'MILKSHAKE',price:'3.60 ₼',desc:'Colourful, a kids favourite.',slot:'zc-h6'}
+      ],
+      ru:[
+        {name:'Cappuccino',tag:'ХИТ',price:'4.20 ₼',desc:'Нежная молочная пена на эспрессо.',slot:'zc-h1'},
+        {name:'Raf',tag:'ФИРМЕННЫЙ',price:'5.40 ₼',desc:'Мягкий фирменный напиток с ванилью.',slot:'zc-h2'},
+        {name:'Cold Brew',tag:'SPECIALTY',price:'4.90 ₼',desc:'Холодного заваривания, вишня и персик.',slot:'zc-h3'},
+        {name:'Ice Latte Pomegranate',tag:'СЕЗОННЫЙ',price:'4.90 ₼',desc:'Ледяной латте со свежестью граната.',slot:'zc-h4'},
+        {name:'Blue Matcha Latte',tag:'НОВИНКА',price:'4.50 ₼',desc:'Голубая матча на бархатном молоке.',slot:'zc-h5'},
+        {name:'Rainbow Unicorn',tag:'МОЛОЧНЫЙ',price:'3.60 ₼',desc:'Яркий, любимец детей.',slot:'zc-h6'}
+      ]
+    };
+
+    const catNav = [
+      { title:t.catCoffee, count:'7+' },
+      { title:t.catSpecial, count:'3' },
+      { title:t.catSpecialty, count:'2' },
+      { title:'Ice Latte', count:'12' },
+      { title:t.catSeasonal, count:'6' },
+      { title:t.catMatcha, count:'3' },
+      { title:t.catLemonades, count:'4' },
+      { title:t.catKids, count:'8' }
+    ];
+
+    const heroVideoUrl = this.props.heroVideoUrl || '';
+    const bgVideoUrl = this.props.bgVideoUrl || 'https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/VID_20260719_103546_662.mp4?v=2';
+    return {
+      heroVideoUrl, heroPoster:this.props.heroPoster || '',
+      hasHeroVideo: !!heroVideoUrl, noHeroVideo: !heroVideoUrl,
+      bgVideoUrl, hasBgVideo: !!bgVideoUrl,
+      bgVideoRef:(el)=>{ if(el){ el.loop=true; el.muted=true; el.playsInline=true; const p=el.play(); if(p&&p.catch)p.catch(()=>{}); } },
+      replayVideo:(e)=>{ const el=e.target; el.currentTime=0; const p=el.play(); if(p&&p.catch)p.catch(()=>{}); },
+      t, nav, langs,
+      goHome:()=>this.go('home'), goMenu:()=>this.go('menu'), goAbout:()=>this.go('about'), goLocations:()=>this.go('locations'), goContact:()=>this.go('contact'),
+      isHome:page==='home', isMenu:page==='menu', isAbout:page==='about', isLocations:page==='locations', isContact:page==='contact',
+      highlights: highlightsByLang[lang] || highlightsByLang.az,
+      catNav,
+      branches: this.BRANCHES,
+      values: this.VALUES[lang] || this.VALUES.az,
+      coffee:this.COFFEE, special:this.SPECIAL, specialty:this.SPECIALTY,
+      iceFlavors:this.ICE_FLAVORS, seasonal:this.SEASONAL, matcha:this.MATCHA,
+      lemonades:this.LEMONADES, kids:this.KIDS, milkshakes:this.MILKSHAKES,
+      sent:this.state.sent,
+      onSubmit:(e)=>{ e.preventDefault(); this.setState({sent:true}); }
+    };
+  }
+}
+</script>
+</body>
+</html>
