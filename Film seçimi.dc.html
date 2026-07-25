@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.min.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  a { color: #e9c877; text-decoration: none; }
+  a:hover { color: #f6ecd6; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  @keyframes glowPulse { 0%, 100% { opacity: .45; } 50% { opacity: .85; } }
+  @keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+  @keyframes grainShift { 0% { transform: translate(0,0); } 100% { transform: translate(-4%,-6%); } }
+  @keyframes ticketIn { from { opacity: 0; transform: translateY(30px) rotate(-4deg); } to { opacity: 1; transform: translateY(0) rotate(-1.5deg); } }
+  @keyframes curtainOpenL { 0% { transform: translateX(0); } 18% { transform: translateX(0); } 100% { transform: translateX(-101%); } }
+  @keyframes curtainOpenR { 0% { transform: translateX(0); } 18% { transform: translateX(0); } 100% { transform: translateX(101%); } }
+  @keyframes photoIn { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: scale(1); } }
+</style>
+</helmet>
+<div style="position:relative; min-height:100vh; width:100%; background:radial-gradient(120% 90% at 50% -12%, #401320 0%, #22090f 46%, #120509 100%); color:#f3e6d0; font-family:'Manrope',system-ui,sans-serif; overflow-x:hidden; display:flex; flex-direction:column; align-items:center; padding:clamp(28px,5vw,68px) 20px 90px;">
+
+  <div style="position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.06; mix-blend-mode:overlay; background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;); animation:grainShift 6s steps(3) infinite alternate;"></div>
+  <div style="position:fixed; top:-30vh; left:50%; transform:translateX(-50%); width:80vw; height:70vh; pointer-events:none; z-index:1; background:radial-gradient(closest-side, rgba(233,200,119,.28), rgba(233,200,119,0) 70%); filter:blur(20px); animation:glowPulse 5s ease-in-out infinite;"></div>
+
+  <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(18,5,9,.62) 0%, rgba(18,5,9,.42) 38%, rgba(18,5,9,.9) 100%), url(&quot;https://tjtkgtazsrykeuncctnt.supabase.co/storage/v1/object/public/zebracoffee/zsd.jpg&quot;) center center/cover no-repeat; animation:photoIn 2.4s ease both;"></div>
+  </sc-if>
+
+  <sc-if value="{{ introCurtains }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; top:0; bottom:0; left:0; width:51%; z-index:6; pointer-events:none; background:repeating-linear-gradient(90deg,#521320 0 24px,#340a12 24px 50px); box-shadow:inset -40px 0 70px rgba(0,0,0,.65); will-change:transform; animation:curtainOpenL 3.4s cubic-bezier(.83,0,.17,1) .6s forwards;">
+      <div style="position:absolute; top:0; bottom:0; right:0; width:4px; background:linear-gradient(90deg, rgba(233,200,119,0), #e9c877);"></div>
+    </div>
+    <div style="position:fixed; top:0; bottom:0; right:0; width:51%; z-index:6; pointer-events:none; background:repeating-linear-gradient(90deg,#340a12 0 26px,#521320 26px 50px); box-shadow:inset 40px 0 70px rgba(0,0,0,.65); will-change:transform; animation:curtainOpenR 3.4s cubic-bezier(.83,0,.17,1) .6s forwards;">
+      <div style="position:absolute; top:0; bottom:0; left:0; width:4px; background:linear-gradient(270deg, rgba(233,200,119,0), #e9c877);"></div>
+    </div>
+    <div style="position:fixed; top:0; left:0; right:0; height:44px; z-index:7; pointer-events:none; background:linear-gradient(180deg,#521320,#340a12); box-shadow:0 6px 16px rgba(0,0,0,.5);"></div>
+  </sc-if>
+
+  <sc-if value="{{ showCurtains }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed; top:0; bottom:0; left:0; width:9vw; min-width:38px; z-index:1; pointer-events:none; background:repeating-linear-gradient(90deg,#4a1019 0 14px,#320a12 14px 30px); box-shadow:inset -22px 0 40px rgba(0,0,0,.6), 3px 0 20px rgba(0,0,0,.4);"></div>
+    <div style="position:fixed; top:0; bottom:0; right:0; width:9vw; min-width:38px; z-index:1; pointer-events:none; background:repeating-linear-gradient(90deg,#320a12 0 16px,#4a1019 16px 30px); box-shadow:inset 22px 0 40px rgba(0,0,0,.6), -3px 0 20px rgba(0,0,0,.4);"></div>
+  </sc-if>
+
+  <div style="width:100%; max-width:1120px; position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center;">
+
+    <!-- INTRO -->
+    <sc-if value="{{ showIntro }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; flex-direction:column; align-items:center; padding-top:clamp(20px,7vh,80px); animation:fadeUp .9s ease both;">
+        <div style="display:flex; gap:12px; margin-bottom:26px;">
+          <span style="width:9px; height:9px; border-radius:50%; background:#e9c877; box-shadow:0 0 10px 2px rgba(233,200,119,.7); animation:twinkle 1.8s ease-in-out infinite;"></span>
+          <span style="width:9px; height:9px; border-radius:50%; background:#e9c877; box-shadow:0 0 10px 2px rgba(233,200,119,.7); animation:twinkle 1.8s ease-in-out .3s infinite;"></span>
+          <span style="width:9px; height:9px; border-radius:50%; background:#e9c877; box-shadow:0 0 10px 2px rgba(233,200,119,.7); animation:twinkle 1.8s ease-in-out .6s infinite;"></span>
+          <span style="width:9px; height:9px; border-radius:50%; background:#e9c877; box-shadow:0 0 10px 2px rgba(233,200,119,.7); animation:twinkle 1.8s ease-in-out .9s infinite;"></span>
+          <span style="width:9px; height:9px; border-radius:50%; background:#e9c877; box-shadow:0 0 10px 2px rgba(233,200,119,.7); animation:twinkle 1.8s ease-in-out 1.2s infinite;"></span>
+        </div>
+        <div style="font-size:14px; letter-spacing:6px; text-transform:uppercase; color:#e9c877; margin-bottom:18px;">Sinema günü</div>
+        <h1 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(40px,7vw,78px); line-height:1; margin:0; color:#f6ecd6;">Salam,</h1>
+        <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(46px,8vw,92px); line-height:1.05; color:#e9c877; margin-top:2px; text-shadow:0 0 30px rgba(233,200,119,.3);">{{ name }}</div>
+        <p style="max-width:520px; font-size:clamp(16px,2vw,19px); line-height:1.7; color:rgba(243,230,208,.82); margin:26px 0 6px; text-wrap:pretty;">Gələn həftə birlikdə bir film izləyək. Amma seçim tamamilə sənindir — həm filmi, həm də günü sən seçəcəksən.</p>
+        <button onClick="{{ start }}" style="margin-top:34px; font-family:'Manrope',sans-serif; font-weight:600; font-size:16px; letter-spacing:.5px; padding:17px 38px; border-radius:999px; border:none; cursor:pointer; background:linear-gradient(135deg,#f0d489,#c9a24b); color:#20090e; box-shadow:0 14px 40px rgba(201,162,75,.35); transition:transform .25s ease, box-shadow .25s ease;" style-hover="transform:translateY(-3px); box-shadow:0 20px 50px rgba(201,162,75,.5);">Pərdəni aç &#8594;</button>
+        <div style="margin-top:30px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:rgba(243,230,208,.5);">bir gün · iki nəfər · bir film</div>
+      </div>
+    </sc-if>
+
+    <!-- STEPPER -->
+    <sc-if value="{{ showStepper }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; align-items:center; gap:18px; margin-bottom:38px; animation:fadeUp .6s ease both;">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span style="{{ st.badgeStyle }}">{{ st.n }}</span>
+            <span style="{{ st.labelStyle }}">{{ st.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- FILMS -->
+    <sc-if value="{{ showFilms }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; animation:fadeUp .7s ease both;">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(30px,4.5vw,52px); margin:0; color:#f6ecd6;">Filmi sən seç</h2>
+        <p style="font-size:16px; color:rgba(243,230,208,.7); margin:12px 0 0;">Öz verdiyin siyahıdan birini seç — hansı filmi istəyirsən?</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:18px; margin-top:36px; text-align:left;">
+          <sc-for list="{{ films }}" as="film" hint-placeholder-count="8">
+            <button onClick="{{ film.select }}" style="appearance:none; border:none; padding:0; margin:0; background:rgba(255,255,255,.035); border-radius:14px; overflow:hidden; cursor:pointer; display:flex; flex-direction:column; position:relative; transition:transform .28s ease, box-shadow .28s ease; box-shadow:0 8px 24px rgba(0,0,0,.35);" style-hover="transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,.5);">
+              <div style="{{ film.posterStyle }}">
+                <span style="position:absolute; top:12px; right:12px; font-family:'Manrope',sans-serif; font-size:11px; letter-spacing:1px; color:rgba(246,236,214,.9); border:1px solid rgba(246,236,214,.3); border-radius:999px; padding:3px 9px; background:rgba(0,0,0,.25);">{{ film.year }}</span>
+                <span style="font-family:'Cormorant Garamond',serif; font-weight:700; font-size:clamp(20px,2.2vw,27px); line-height:1.04; color:#f6ecd6; text-shadow:0 2px 12px rgba(0,0,0,.5);">{{ film.title }}</span>
+                <span style="font-family:'Manrope',sans-serif; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:rgba(246,236,214,.72); margin-top:9px;">{{ film.genre }}</span>
+                <sc-if value="{{ film.selected }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute; inset:0; border-radius:12px; border:2px solid #e9c877; box-shadow:inset 0 0 0 4px rgba(233,200,119,.16), 0 0 26px rgba(233,200,119,.4); pointer-events:none;"></div>
+                  <div style="position:absolute; top:10px; left:10px; width:27px; height:27px; border-radius:50%; background:#e9c877; color:#20090e; display:grid; place-items:center; font-weight:700; font-size:15px; box-shadow:0 0 14px rgba(233,200,119,.6);">&#10003;</div>
+                </sc-if>
+              </div>
+              <div style="padding:13px 15px 16px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; line-height:1.35; color:rgba(243,230,208,.78); border-top:1px solid rgba(233,200,119,.14); background:rgba(0,0,0,.22); text-wrap:pretty;">{{ film.tag }}</div>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:40px;">
+          <button onClick="{{ toDay }}" style="{{ filmBtnStyle }}" style-hover="transform:translateY(-2px);">Günü seç &#8594;</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- OFFER -->
+    <sc-if value="{{ showOffer }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; max-width:640px; display:flex; flex-direction:column; align-items:center; text-align:center; animation:fadeUp .8s ease both;">
+        <div id="offer-card" style="width:100%; padding:clamp(28px,4vw,44px) clamp(24px,3vw,38px); border-radius:24px; border:1px solid rgba(233,200,119,.25); background:linear-gradient(160deg,#2a0a12,#160609); box-shadow:0 24px 60px rgba(0,0,0,.45); display:flex; flex-direction:column; align-items:center; text-align:center;">
+        <div style="font-size:13px; letter-spacing:5px; text-transform:uppercase; color:#e9c877; margin-bottom:16px;">Bir təklifim var</div>
+        <h2 style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(38px,6vw,66px); line-height:1; margin:0; color:#e9c877; text-shadow:0 0 30px rgba(233,200,119,.25);">İlahə,</h2>
+        <p style="max-width:540px; font-size:clamp(17px,2vw,20px); line-height:1.75; color:rgba(243,230,208,.86); margin:24px 0 4px; text-wrap:pretty;">Filmi sənə buraxdım, amma ürəyimdə kiçik bir təklif var. İcazə versən, ikimizə bir plan quraq:</p>
+
+        <div style="display:grid; grid-template-columns:1fr; gap:16px; width:100%; margin-top:30px; text-align:left;">
+          <div style="position:relative; display:flex; align-items:flex-start; gap:18px; padding:24px 26px; border-radius:18px; border:1px solid rgba(233,200,119,.3); background:linear-gradient(150deg, rgba(82,19,32,.5), rgba(34,10,15,.5)); box-shadow:0 16px 40px rgba(0,0,0,.35);">
+            <span style="flex:none; font-family:'Cormorant Garamond',serif; font-size:34px; line-height:1; color:#e9c877;">01</span>
+            <div>
+              <div style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#e9c877; margin-bottom:8px;">Bu həftə · ilk görüş</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(22px,3vw,28px); line-height:1.2; color:#f6ecd6;">Bir kofe, ya da çay — sadəcə ikimiz</div>
+              <p style="font-size:15px; line-height:1.6; color:rgba(243,230,208,.72); margin:8px 0 0; text-wrap:pretty;">Tələsmədən, sakit bir küncdə. Bir-birimizi daha yaxından tanıyaq.</p>
+            </div>
+          </div>
+          <div style="position:relative; display:flex; align-items:flex-start; gap:18px; padding:24px 26px; border-radius:18px; border:1px solid rgba(233,200,119,.3); background:linear-gradient(150deg, rgba(34,10,15,.5), rgba(82,19,32,.5)); box-shadow:0 16px 40px rgba(0,0,0,.35);">
+            <span style="flex:none; font-family:'Cormorant Garamond',serif; font-size:34px; line-height:1; color:#e9c877;">02</span>
+            <div>
+              <div style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#e9c877; margin-bottom:8px;">Qarşıdakı günlərdə · kinoteatr</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(22px,3vw,28px); line-height:1.2; color:#f6ecd6;">«Spider-Man: Brand New Day»</div>
+              <p style="font-size:15px; line-height:1.6; color:rgba(243,230,208,.72); margin:8px 0 0; text-wrap:pretty;">Yeni vizyona girir — böyük ekranda, birlikdə baxaq.</p>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; align-items:center; gap:18px; margin-top:34px; flex-wrap:wrap;">
+          <button onClick="{{ editFilm }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; padding:15px 28px; border-radius:999px; background:transparent; color:#e9c877; border:1px solid rgba(233,200,119,.4); cursor:pointer; transition:background .2s ease;" style-hover="background:rgba(233,200,119,.08);">&#8592; Geri</button>
+          <button onClick="{{ acceptOffer }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; letter-spacing:.5px; padding:15px 30px; border-radius:999px; cursor:pointer; background:transparent; color:#e9c877; border:1px solid rgba(233,200,119,.55); transition:background .2s ease;" style-hover="background:rgba(233,200,119,.1);">Bu təklifi qəbul edirəm &#9829;</button>
+          <button onClick="{{ goDay }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:16px; letter-spacing:.5px; padding:16px 36px; border-radius:999px; border:none; cursor:pointer; background:linear-gradient(135deg,#f0d489,#c9a24b); color:#20090e; box-shadow:0 14px 40px rgba(201,162,75,.35); transition:transform .25s ease;" style-hover="transform:translateY(-2px);">Günü seçək &#8594;</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PLAN -->
+    <sc-if value="{{ showPlan }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; max-width:760px; display:flex; flex-direction:column; align-items:center; text-align:center; animation:fadeUp .7s ease both;">
+        <div style="font-size:13px; letter-spacing:5px; text-transform:uppercase; color:#e9c877; margin-bottom:14px;">İlk görüşümüz</div>
+        <h2 style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(30px,4.5vw,52px); margin:0; color:#f6ecd6;">Planımızı quraq</h2>
+        <p style="font-size:16px; color:rgba(243,230,208,.72); margin:12px 0 0;">Nə içək və hansı gün görüşək? Seçim sənindir.</p>
+
+        <div style="width:100%; text-align:left; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:#e9c877; margin:34px 0 14px;">Nə içək?</div>
+        <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:14px; width:100%;">
+          <sc-for list="{{ drinks }}" as="drink" hint-placeholder-count="2">
+            <button onClick="{{ drink.select }}" style="appearance:none; position:relative; padding:26px 18px; border-radius:16px; border:1px solid rgba(233,200,119,.2); background:rgba(255,255,255,.03); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:8px; transition:transform .24s ease, border-color .24s ease, background .24s ease;" style-hover="transform:translateY(-4px); border-color:rgba(233,200,119,.5); background:rgba(233,200,119,.06);">
+              <span style="font-size:34px; line-height:1;">{{ drink.icon }}</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:26px; color:#f6ecd6;">{{ drink.label }}</span>
+              <span style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:14px; color:rgba(243,230,208,.6);">{{ drink.note }}</span>
+              <sc-if value="{{ drink.selected }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; inset:0; border-radius:16px; border:2px solid #e9c877; box-shadow:0 0 24px rgba(233,200,119,.35); pointer-events:none;"></div>
+                <div style="position:absolute; top:10px; right:10px; width:24px; height:24px; border-radius:50%; background:#e9c877; color:#20090e; display:grid; place-items:center; font-weight:700; font-size:14px;">&#10003;</div>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="width:100%; text-align:left; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:#e9c877; margin:34px 0 14px;">Hansı gün?</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:12px; width:100%;">
+          <sc-for list="{{ planDays }}" as="pday" hint-placeholder-count="7">
+            <button onClick="{{ pday.select }}" style="appearance:none; position:relative; padding:20px 14px; border-radius:14px; border:1px solid rgba(233,200,119,.18); background:rgba(255,255,255,.03); cursor:pointer; transition:transform .24s ease, border-color .24s ease, background .24s ease;" style-hover="transform:translateY(-4px); border-color:rgba(233,200,119,.5); background:rgba(233,200,119,.06);">
+              <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:21px; color:#f6ecd6;">{{ pday.label }}</span>
+              <sc-if value="{{ pday.selected }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; inset:0; border-radius:14px; border:2px solid #e9c877; box-shadow:0 0 24px rgba(233,200,119,.35); pointer-events:none;"></div>
+                <div style="position:absolute; top:9px; right:9px; width:22px; height:22px; border-radius:50%; background:#e9c877; color:#20090e; display:grid; place-items:center; font-weight:700; font-size:13px;">&#10003;</div>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex; justify-content:center; align-items:center; gap:18px; margin-top:40px; flex-wrap:wrap;">
+          <button onClick="{{ goOffer }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; padding:15px 28px; border-radius:999px; background:transparent; color:#e9c877; border:1px solid rgba(233,200,119,.4); cursor:pointer; transition:background .2s ease;" style-hover="background:rgba(233,200,119,.08);">&#8592; Geri</button>
+          <button onClick="{{ finish }}" style="{{ finishBtnStyle }}" style-hover="transform:translateY(-2px);">Bitti &#10003;</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PLAN DONE -->
+    <sc-if value="{{ showPlanDone }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; align-items:center; padding-top:clamp(6px,3vh,30px); animation:fadeUp .8s ease both;">
+        <div style="font-size:13px; letter-spacing:5px; text-transform:uppercase; color:#e9c877; margin-bottom:14px;">Təklif qəbul edildi</div>
+        <h2 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(34px,5.5vw,60px); margin:0 0 30px; color:#f6ecd6;">Deməli, görüşürük.</h2>
+
+        <div id="plan-card" style="position:relative; width:100%; max-width:520px; padding:clamp(30px,4vw,44px) clamp(26px,3vw,40px); border-radius:24px; border:1px solid rgba(233,200,119,.4); background:linear-gradient(160deg,#2a0a12,#160609); box-shadow:0 24px 60px rgba(0,0,0,.5), inset 0 0 50px rgba(233,200,119,.06); overflow:hidden;">
+          <div style="position:absolute; top:-50px; left:50%; transform:translateX(-50%); width:220px; height:130px; background:radial-gradient(closest-side, rgba(233,200,119,.4), transparent 70%); filter:blur(16px); pointer-events:none;"></div>
+          <div style="position:relative; text-align:center;">
+            <div style="font-size:12px; letter-spacing:4px; text-transform:uppercase; color:#e9c877;">İlk görüş dəvəti</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600; font-size:clamp(34px,5vw,50px); line-height:1; color:#e9c877; margin:10px 0 4px; text-shadow:0 0 30px rgba(233,200,119,.3);">{{ name }} &amp; Fərid</div>
+            <div style="width:60px; height:1px; background:rgba(233,200,119,.5); margin:20px auto;"></div>
+          </div>
+          <div style="position:relative; display:flex; gap:16px; justify-content:center; margin:4px 0 22px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:150px; text-align:center; padding:18px 12px; border-radius:14px; background:rgba(233,200,119,.06); border:1px solid rgba(233,200,119,.18);">
+              <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#e9c877; margin-bottom:6px;">Nə içirik</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:26px; color:#f6ecd6;">{{ planDrinkLabel }}</div>
+            </div>
+            <div style="flex:1; min-width:150px; text-align:center; padding:18px 12px; border-radius:14px; background:rgba(233,200,119,.06); border:1px solid rgba(233,200,119,.18);">
+              <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#e9c877; margin-bottom:6px;">Hansı gün</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:26px; color:#f6ecd6;">{{ planDayLabel }}</div>
+            </div>
+          </div>
+          <div style="position:relative; text-align:center; padding-top:18px; border-top:1px dashed rgba(233,200,119,.3);">
+            <div style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:#e9c877; margin-bottom:6px;">Və qarşıdakı günlərdə</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(20px,3vw,25px); line-height:1.2; color:#f6ecd6;">«Spider-Man: Brand New Day» — kinoteatrda</div>
+          </div>
+          <p style="position:relative; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(18px,2.4vw,22px); line-height:1.5; color:#e9c877; margin:24px 0 0; text-align:center; text-wrap:pretty;">Səbirsizliklə gözləyirəm.</p>
+        </div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:30px;">
+          <button onClick="{{ downloadPlan }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; letter-spacing:.5px; padding:15px 30px; border-radius:999px; border:none; cursor:pointer; background:linear-gradient(135deg,#f0d489,#c9a24b); color:#20090e; box-shadow:0 12px 34px rgba(201,162,75,.32); transition:transform .25s ease;" style-hover="transform:translateY(-2px);">Şəkli yenidən yüklə</button>
+          <button onClick="{{ restart }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:14px; padding:15px 26px; border-radius:999px; background:transparent; color:rgba(243,230,208,.7); border:1px solid rgba(243,230,208,.22); cursor:pointer; transition:color .2s ease, border-color .2s ease;" style-hover="color:#e9c877; border-color:rgba(233,200,119,.4);">&#8635; Yenidən</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- DAY -->
+    <sc-if value="{{ showDay }}" hint-placeholder-val="{{ false }}">
+      <div style="width:100%; max-width:820px; animation:fadeUp .7s ease both;">
+        <h2 style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(30px,4.5vw,52px); margin:0; color:#f6ecd6;">İndi günü seç</h2>
+        <p style="font-size:16px; color:rgba(243,230,208,.7); margin:12px 0 0;">Gələn həftə bütün günlər mümkündür. Sənə hansı uyğundur?</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:14px; margin-top:34px;">
+          <sc-for list="{{ days }}" as="day" hint-placeholder-count="7">
+            <button onClick="{{ day.select }}" style="appearance:none; position:relative; padding:22px 16px; border-radius:14px; border:1px solid rgba(233,200,119,.18); background:rgba(255,255,255,.03); cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:7px; transition:transform .24s ease, border-color .24s ease, background .24s ease;" style-hover="transform:translateY(-4px); border-color:rgba(233,200,119,.5); background:rgba(233,200,119,.06);">
+              <span style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:23px; color:#f6ecd6;">{{ day.label }}</span>
+              <sc-if value="{{ day.selected }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; inset:0; border-radius:14px; border:2px solid #e9c877; box-shadow:0 0 24px rgba(233,200,119,.35); pointer-events:none;"></div>
+                <div style="position:absolute; top:10px; right:10px; width:24px; height:24px; border-radius:50%; background:#e9c877; color:#20090e; display:grid; place-items:center; font-weight:700; font-size:14px;">&#10003;</div>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex; justify-content:center; align-items:center; gap:18px; margin-top:40px; flex-wrap:wrap;">
+          <button onClick="{{ editFilm }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; padding:15px 28px; border-radius:999px; background:transparent; color:#e9c877; border:1px solid rgba(233,200,119,.4); cursor:pointer; transition:background .2s ease;" style-hover="background:rgba(233,200,119,.08);">&#8592; Filmi dəyiş</button>
+          <button onClick="{{ confirm }}" style="{{ dayBtnStyle }}" style-hover="transform:translateY(-2px);">Təsdiqlə &#10003;</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- DONE -->
+    <sc-if value="{{ showDone }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; align-items:center; padding-top:clamp(10px,4vh,40px); animation:fadeUp .8s ease both;">
+        <div style="font-size:14px; letter-spacing:6px; text-transform:uppercase; color:#e9c877; margin-bottom:16px;">Seçim tamamlandı</div>
+        <h2 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(34px,5.5vw,64px); line-height:1.08; margin:0 0 14px; color:#f6ecd6; max-width:640px;">{{ summaryText }}</h2>
+        <p style="max-width:500px; font-size:17px; line-height:1.7; color:rgba(243,230,208,.78); margin:0 0 40px; text-wrap:pretty;">{{ subText }}</p>
+
+        <div id="cinema-ticket" style="display:flex; width:100%; max-width:540px; border-radius:16px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.55); animation:ticketIn 1s cubic-bezier(.2,.8,.2,1) both; position:relative;">
+          <div style="flex:1; padding:26px 28px; background:linear-gradient(135deg,#f6ecd0,#e6cf9f); color:#2a0d12; text-align:left;">
+            <div style="font-size:11px; letter-spacing:3px; text-transform:uppercase; color:#8a5a1e;">İki nəfər · Sinema günü</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-weight:700; font-size:clamp(26px,3.5vw,34px); line-height:1.06; margin:12px 0 4px;">{{ filmTitle }}</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:16px; color:#6e3a20;">{{ filmSub }}</div>
+            <div style="height:1px; background:rgba(42,13,18,.18); margin:18px 0;"></div>
+            <div style="display:flex; gap:24px; flex-wrap:wrap;">
+              <div>
+                <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#8a5a1e;">Gün</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:20px;">{{ dayLabel }}</div>
+              </div>
+              <div>
+                <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#8a5a1e;">Qonaq</div>
+                <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:20px;">{{ name }}</div>
+              </div>
+            </div>
+          </div>
+          <div style="width:118px; padding:22px 14px; background:linear-gradient(135deg,#ecd9a8,#dcbf82); color:#2a0d12; border-left:2px dashed rgba(42,13,18,.35); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:6px; position:relative;">
+            <div style="position:absolute; top:-11px; left:-11px; width:22px; height:22px; border-radius:50%; background:#22090f;"></div>
+            <div style="position:absolute; bottom:-11px; left:-11px; width:22px; height:22px; border-radius:50%; background:#22090f;"></div>
+            <div style="font-size:22px; color:#8a5a1e;">&#10022;</div>
+            <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:#8a5a1e;">Yer</div>
+            <div style="font-family:'Cormorant Garamond',serif; font-weight:700; font-size:17px; line-height:1.2;">sən &amp; mən</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:32px;">
+          <button onClick="{{ shareTicket }}" style="font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; letter-spacing:.5px; padding:15px 30px; border-radius:999px; border:none; cursor:pointer; background:linear-gradient(135deg,#f0d489,#c9a24b); color:#20090e; box-shadow:0 12px 34px rgba(201,162,75,.32); transition:transform .25s ease;" style-hover="transform:translateY(-2px);">Bileti şəkil kimi göndər</button>
+          <sc-if value="{{ hasPhone }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ whatsappUrl }}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; font-family:'Manrope',sans-serif; font-weight:600; font-size:15px; letter-spacing:.5px; padding:15px 30px; border-radius:999px; cursor:pointer; background:transparent; color:#e9c877; border:1px solid rgba(233,200,119,.4); transition:background .2s ease;" style-hover="background:rgba(233,200,119,.08);">WhatsApp ilə göndər</a>
+          </sc-if>
+        </div>
+        <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(19px,2.4vw,24px); line-height:1.5; color:#e9c877; max-width:480px; margin:32px 0 0; text-wrap:pretty;">Popcornu mən gətirərəm, gülüşünü sən. Səbirsizliklə gözləyirəm.</p>
+
+        <button onClick="{{ restart }}" style="margin-top:34px; font-family:'Manrope',sans-serif; font-weight:600; font-size:14px; padding:13px 26px; border-radius:999px; background:transparent; color:rgba(243,230,208,.7); border:1px solid rgba(243,230,208,.22); cursor:pointer; transition:color .2s ease, border-color .2s ease;" style-hover="color:#e9c877; border-color:rgba(233,200,119,.4);">&#8635; Yenidən seç</button>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:720},&quot;guestName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ilahə&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Şəxsi&quot;},&quot;myPhone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Şəxsi&quot;},&quot;showCurtains&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Görünüş&quot;},&quot;filmSort&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Onun sırası&quot;,&quot;options&quot;:[&quot;Onun sırası&quot;,&quot;Əlifba sırası&quot;,&quot;Romantiklər əvvəldə&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Görünüş&quot;},&quot;posterMood&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Rəngli&quot;,&quot;options&quot;:[&quot;Rəngli&quot;,&quot;Klassik (qara-ağ)&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Görünüş&quot;}}">
+class Component extends DCLogic {
+  state = { step: 'intro', filmTitle: null, dayLabel: null, drink: null, planDrink: null, planDay: null };
+
+  films = [
+    { title: 'Pride & Prejudice', year: '2005', genre: 'Romantika · Dram', tag: 'Qürur, qərəz və bir baxışda başlayan hər şey.', c1: '#3a0f1c', c2: '#7a2338', rom: true },
+    { title: 'La La Land', year: '2016', genre: 'Musiqili · Romantika', tag: 'Sevgi, arzular və ulduzların altında bir vals.', c1: '#241a4e', c2: '#4a2f7a', rom: true },
+    { title: 'The Notebook', year: '2004', genre: 'Romantika · Dram', tag: 'Bir dəftərə yazılmış əbədi sevgi.', c1: '#3a0f1c', c2: '#7a2338', rom: true },
+    { title: 'Eternal Sunshine of the Spotless Mind', year: '2004', genre: 'Romantika · Fantastika', tag: 'Unutmaq mümkün olsa belə, ürək xatırlayır.', c1: '#2a1230', c2: '#5a2456', rom: true },
+    { title: 'Kill Bill', year: '2003', genre: 'Aksiyon · Triller', tag: 'İntiqam sarı kombinizonda gəzir.', c1: '#2a1014', c2: '#6e1e1a', rom: false },
+    { title: 'The Lord of the Rings', year: '2001', genre: 'Fantastika · Macəra', tag: 'Bir üzük, böyük bir macəra.', c1: '#14260f', c2: '#37501f', rom: false },
+    { title: 'Dune', year: '2021', genre: 'Elmi-fantastika', tag: 'Səhra, taleyi və bir imperatorluq.', c1: '#3a2810', c2: '#8a5620', rom: false },
+    { title: 'Sweet November', year: '2001', genre: 'Romantika · Dram', tag: 'Bir ay bəs edərmi sevməyə?', c1: '#3a0f1c', c2: '#7a2338', rom: true },
+    { title: 'Mad Max: Fury Road', year: '2015', genre: 'Aksiyon · Macəra', tag: 'Toz, sürət və üsyan.', c1: '#351408', c2: '#7a2f10', rom: false },
+    { title: 'Toy Story', year: '1995', genre: 'Animasiya · Ailə', tag: 'Sonsuzluğa və daha da o tərəfə!', c1: '#2e1c0a', c2: '#7a4a1c', rom: false },
+    { title: 'Interstellar', year: '2014', genre: 'Elmi-fantastika · Dram', tag: 'Sevgi zamanı və məkanı aşan yeganə qüvvədir.', c1: '#0d2b30', c2: '#1e5560', rom: false },
+    { title: 'The Martian', year: '2015', genre: 'Elmi-fantastika · Macəra', tag: 'Bir nəfər, bir planet, saysız ümid.', c1: '#3a120a', c2: '#7a2612', rom: false },
+    { title: 'The Hobbit', year: '2012', genre: 'Fantastika · Macəra', tag: 'Gözlənilməz bir səyahət.', c1: '#14260f', c2: '#37501f', rom: false },
+    { title: 'Atonement', year: '2007', genre: 'Romantika · Dram', tag: 'Bir yalan, ömürlük bir peşmanlıq.', c1: '#3a0f1c', c2: '#7a2338', rom: true },
+    { title: 'Robot Dreams', year: '2023', genre: 'Animasiya · Dram', tag: 'Sözsüz danışan bir dostluq.', c1: '#0d2b30', c2: '#1e5560', rom: false },
+    { title: '12 Angry Men', year: '1957', genre: 'Dram · Triller', tag: 'On iki adam, tək bir həqiqət.', c1: '#14161d', c2: '#333a49', rom: false },
+    { title: 'Coco', year: '2017', genre: 'Animasiya · Ailə', tag: 'Musiqi, ailə və unudulmayan xatirələr.', c1: '#2a1236', c2: '#8a3a2e', rom: false },
+    { title: 'The Croods', year: '2013', genre: 'Animasiya · Macəra', tag: 'Daş dövründən şən bir ailə macərası.', c1: '#2e1c0a', c2: '#7a4a1c', rom: false },
+    { title: 'Inception', year: '2010', genre: 'Elmi-fantastika · Triller', tag: 'Yuxu içində yuxu.', c1: '#14161d', c2: '#333a49', rom: false },
+    { title: 'Avatar', year: '2009', genre: 'Elmi-fantastika · Macəra', tag: 'Başqa bir dünyaya aşiq olmaq.', c1: '#0d2b30', c2: '#1e5560', rom: false },
+    { title: 'Pulp Fiction', year: '1994', genre: 'Kriminal · Dram', tag: 'Kriminal bir mozaika.', c1: '#14161d', c2: '#333a49', rom: false },
+    { title: 'Scarface', year: '1983', genre: 'Kriminal · Dram', tag: 'Əvvəlcə pul, sonra hakimiyyət.', c1: '#241012', c2: '#5a1c1c', rom: false },
+    { title: 'Cars', year: '2006', genre: 'Animasiya · Ailə', tag: 'Sürət hər şey deyil.', c1: '#351408', c2: '#7a2f10', rom: false },
+    { title: 'The Hateful Eight', year: '2015', genre: 'Vestern · Triller', tag: 'Qarda səkkiz yad adam.', c1: '#351408', c2: '#7a2f10', rom: false },
+    { title: 'Amélie', year: '2001', genre: 'Romantika · Komediya', tag: 'Kiçik xoşbəxtliklərin sehri.', c1: '#2a1220', c2: '#6e1e2a', rom: true }
+  ];
+
+  days = [
+    { label: 'Bazar ertəsi', note: 'yeni həftəyə şirin başlanğıc' },
+    { label: 'Çərşənbə axşamı', note: 'sakit bir axşam' },
+    { label: 'Çərşənbə', note: 'həftənin ortası, tam vaxtıdır' },
+    { label: 'Cümə axşamı', note: 'həftəsonuna bir addım' },
+    { label: 'Cümə', note: 'həftənin ən azad axşamı' },
+    { label: 'Şənbə', note: 'tələsmədən, bütün axşam bizim' },
+    { label: 'Bazar', note: 'rahat və isti bir axşam' }
+  ];
+
+  renderVals() {
+    const step = this.state.step;
+    const name = this.props.guestName ?? 'gözəl';
+    const sort = this.props.filmSort ?? 'Onun sırası';
+    const bw = (this.props.posterMood ?? 'Rəngli') === 'Klassik (qara-ağ)';
+    const curtains = this.props.showCurtains ?? true;
+
+    let list = this.films.slice();
+    if (sort === 'Əlifba sırası') list.sort((a, b) => a.title.localeCompare(b.title));
+    else if (sort === 'Romantiklər əvvəldə') list.sort((a, b) => (b.rom === true) - (a.rom === true));
+
+    const films = list.map((f) => ({
+      ...f,
+      selected: this.state.filmTitle === f.title,
+      select: () => this.setState({ filmTitle: f.title }),
+      posterStyle: {
+        position: 'relative', height: '236px', borderRadius: '12px', overflow: 'hidden',
+        background: `linear-gradient(155deg, ${f.c1} 0%, ${f.c2} 100%)`,
+        display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+        padding: '18px', filter: bw ? 'grayscale(1) contrast(1.08) brightness(.96)' : 'none'
+      }
+    }));
+
+    const days = this.days.map((d) => ({
+      ...d,
+      selected: this.state.dayLabel === d.label,
+      select: () => this.setState({ dayLabel: d.label })
+    }));
+
+    const canFilm = !!this.state.filmTitle;
+    const canDay = !!this.state.dayLabel;
+
+    const primary = {
+      fontFamily: "'Manrope',sans-serif", fontWeight: 600, fontSize: '16px', letterSpacing: '.5px',
+      padding: '16px 36px', borderRadius: '999px', border: 'none', cursor: 'pointer',
+      background: 'linear-gradient(135deg,#f0d489,#c9a24b)', color: '#20090e',
+      boxShadow: '0 14px 40px rgba(201,162,75,.35)', transition: 'transform .25s ease'
+    };
+    const disabled = {
+      ...primary, background: 'rgba(243,230,208,.1)', color: 'rgba(243,230,208,.4)',
+      boxShadow: 'none', cursor: 'not-allowed'
+    };
+
+    const cur = step === 'done' ? 3 : step === 'day' ? 2 : 1;
+    const badge = (s) => {
+      const base = { width: '34px', height: '34px', borderRadius: '50%', display: 'grid', placeItems: 'center', fontFamily: "'Manrope',sans-serif", fontWeight: 700, fontSize: '14px', transition: 'all .3s ease' };
+      if (s === 'active') return { ...base, background: '#e9c877', color: '#20090e', boxShadow: '0 0 18px rgba(233,200,119,.5)' };
+      if (s === 'done') return { ...base, background: 'rgba(233,200,119,.15)', color: '#e9c877', border: '1px solid rgba(233,200,119,.5)' };
+      return { ...base, background: 'transparent', color: 'rgba(243,230,208,.4)', border: '1px solid rgba(243,230,208,.15)' };
+    };
+    const lbl = (s) => ({ fontFamily: "'Manrope',sans-serif", fontSize: '13px', letterSpacing: '1px', color: (s === 'todo') ? 'rgba(243,230,208,.4)' : '#f3e6d0' });
+    const stateOf = (n) => n < cur ? 'done' : n === cur ? 'active' : 'todo';
+    const steps = [
+      { n: '01', label: 'Film', badgeStyle: badge(stateOf(1)), labelStyle: lbl(stateOf(1)) },
+      { n: '02', label: 'Gün', badgeStyle: badge(stateOf(2)), labelStyle: lbl(stateOf(2)) },
+      { n: '03', label: 'Təsdiq', badgeStyle: badge(stateOf(3)), labelStyle: lbl(stateOf(3)) }
+    ];
+
+    const drinks = [
+      { key: 'kofe', label: 'Kofe', note: 'isti, yavaş, sakit', icon: '☕', selected: this.state.planDrink === 'kofe', select: () => this.setState({ planDrink: 'kofe' }) },
+      { key: 'çay', label: 'Çay', note: 'incə və ürəkaçan', icon: '🍵', selected: this.state.planDrink === 'çay', select: () => this.setState({ planDrink: 'çay' }) }
+    ];
+    const planDays = this.days.map((d) => ({
+      label: d.label,
+      selected: this.state.planDay === d.label,
+      select: () => this.setState({ planDay: d.label })
+    }));
+    const canFinish = !!this.state.planDrink && !!this.state.planDay;
+    const planDrinkLabel = this.state.planDrink === 'kofe' ? 'Kofe' : (this.state.planDrink === 'çay' ? 'Çay' : '');
+    const planDayLabel = this.state.planDay || '';
+    const downloadPlan = async () => {
+      const el = document.getElementById('plan-card');
+      if (!el || !window.htmlToImage) return;
+      try {
+        const blob = await window.htmlToImage.toBlob(el, { pixelRatio: 2, backgroundColor: '#160609' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'ilk-gorus.png'; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      } catch (e) {}
+    };
+    const finish = () => {
+      if (!canFinish) return;
+      this.setState({ step: 'planDone' });
+      requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(downloadPlan, 350)));
+    };
+
+    const chosenFilm = this.films.find((f) => f.title === this.state.filmTitle);
+    const dayLabel = this.state.dayLabel || '';
+    const summaryText = chosenFilm ? `Gələn ${dayLabel.toLocaleLowerCase('az')} birlikdə “${chosenFilm.title}” izləyirik.` : '';
+    const phone = (this.props.myPhone ?? '').replace(/\D/g, '');
+    const hasPhone = phone.length >= 6;
+    const waText = `Seçdim! ${summaryText} Səni gözləyirəm :)`;
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(waText)}`;
+    const shareTicket = async () => {
+      const el = document.getElementById('cinema-ticket');
+      if (!el || !window.htmlToImage) return;
+      try {
+        const blob = await window.htmlToImage.toBlob(el, { pixelRatio: 2, backgroundColor: '#22090f' });
+        const file = new File([blob], 'sinema-bileti.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file] });
+        } else {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url; a.download = 'sinema-bileti.png'; a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+      } catch (e) {}
+    };
+
+    return {
+      name, showCurtains: curtains,
+      introCurtains: step === 'intro' && curtains,
+      showIntro: step === 'intro',
+      showStepper: step === 'films' || step === 'day',
+      showFilms: step === 'films',
+      showOffer: step === 'offer',
+      showDay: step === 'day',
+      showDone: step === 'done',
+      films, days, steps,
+      filmBtnStyle: canFilm ? primary : disabled,
+      dayBtnStyle: canDay ? primary : disabled,
+      filmTitle: chosenFilm ? chosenFilm.title : '',
+      filmSub: chosenFilm ? `${chosenFilm.year} · ${chosenFilm.genre}` : '',
+      dayLabel, summaryText,
+      subText: 'Seçimin mənə çatdı. İndi yalnız o axşamı gözləmək qalır.',
+      hasPhone, whatsappUrl, shareTicket,
+      noDrink: !this.state.drink,
+      hasDrink: !!this.state.drink,
+      drinkReply: this.state.drink === 'kofe'
+        ? 'Onda ilk görüşümüz bir fincan kofe ilə. Səbirsizliklə gözləyirəm.'
+        : (this.state.drink === 'çay'
+          ? 'Onda ilk görüşümüz bir stəkan çay ilə. Səbirsizliklə gözləyirəm.'
+          : ''),
+      chooseCoffee: () => this.setState({ drink: 'kofe' }),
+      chooseTea: () => this.setState({ drink: 'çay' }),
+      start: () => this.setState({ step: 'films' }),
+      toDay: () => { if (canFilm) this.setState({ step: 'offer' }); },
+      goDay: () => this.setState({ step: 'day' }),
+      acceptOffer: () => this.setState({ step: 'plan' }),
+      goOffer: () => this.setState({ step: 'offer' }),
+      showPlan: step === 'plan',
+      showPlanDone: step === 'planDone',
+      drinks, planDays, finish, downloadPlan,
+      finishBtnStyle: canFinish ? primary : disabled,
+      planDrinkLabel, planDayLabel,
+      confirm: () => {
+        if (!canDay) return;
+        this.setState({ step: 'done' });
+        requestAnimationFrame(() => requestAnimationFrame(() => { setTimeout(shareTicket, 250); }));
+      },
+      editFilm: () => this.setState({ step: 'films' }),
+      restart: () => this.setState({ step: 'intro', filmTitle: null, dayLabel: null, drink: null, planDrink: null, planDay: null })
+    };
+  }
+}
+</script>
+</body>
+</html>
