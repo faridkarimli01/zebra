@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" fill="#2a1e5c"/>
+  <circle cx="74" cy="26" r="10" fill="#ffe4a3"/>
+  <text x="50" y="60" font-size="34" text-anchor="middle">☕</text>
+  <text x="50" y="82" font-family="Georgia" font-style="italic" font-size="13" fill="#ffd98a" text-anchor="middle">Fidan</text>
+</svg>
+</template>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { font-family: 'Cormorant Garamond', serif; -webkit-font-smoothing: antialiased; }
+  @keyframes twinkle { 0%,100% { opacity: .15; transform: scale(.7); } 50% { opacity: 1; transform: scale(1); } }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes glow { 0%,100% { text-shadow: 0 0 18px rgba(255,214,138,.35); } 50% { text-shadow: 0 0 34px rgba(255,214,138,.7); } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes shoot { 0% { transform: translate(0,0) rotate(-25deg); opacity: 0; } 8% { opacity: 1; } 30% { opacity: 0; } 100% { transform: translate(340px,150px) rotate(-25deg); opacity: 0; } }
+  @keyframes conf { 0% { transform: translate(0,0) rotate(0deg); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; } }
+</style>
+</helmet>
+<div style="position:relative; min-height:100vh; width:100%; overflow:hidden; background:radial-gradient(120% 90% at 78% 8%, #2a1e5c 0%, #241a55 22%, #2b2a6e 42%, #4a3a7a 60%, #8a5a86 78%, #d98b6a 92%, #f4b46b 100%); display:flex; align-items:center; justify-content:center; padding:48px 20px;">
+
+  <!-- confetti -->
+  <div style="position:absolute; inset:0; pointer-events:none; z-index:20;">
+    <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0">
+      <span style="{{ c.style }}"></span>
+    </sc-for>
+  </div>
+
+  <!-- stars -->
+  <div style="position:absolute; inset:0; pointer-events:none;">
+    <sc-for list="{{ stars }}" as="s" hint-placeholder-count="40">
+      <span style="position:absolute; top:{{ s.top }}; left:{{ s.left }}; width:{{ s.size }}; height:{{ s.size }}; border-radius:50%; background:#fff5db; box-shadow:0 0 6px #fff2c8; animation:twinkle {{ s.dur }} ease-in-out infinite; animation-delay:{{ s.delay }};"></span>
+    </sc-for>
+    <span style="position:absolute; top:14%; left:8%; width:3px; height:3px; border-radius:50%; background:#fff; box-shadow:0 0 12px 2px #fff, 40px 20px 40px 0 rgba(255,255,255,.15); animation:shoot 9s ease-in 2s infinite;"></span>
+  </div>
+
+  <!-- moon -->
+  <div style="position:absolute; top:9%; right:12%; width:110px; height:110px; border-radius:50%; background:radial-gradient(circle at 38% 34%, #fff7e0, #ffe4a3 60%, #f6c96a); box-shadow:0 0 60px 12px rgba(255,220,150,.45); animation:floaty 7s ease-in-out infinite;"></div>
+
+  <!-- skyline silhouette -->
+  <svg viewBox="0 0 1440 220" preserveAspectRatio="none" style="position:absolute; bottom:0; left:0; width:100%; height:190px; opacity:.55;">
+    <path fill="#1c1338" d="M0,220 L0,150 L40,150 L40,120 L80,120 L80,160 L130,160 L130,90 L150,90 L150,60 L165,60 L165,90 L185,90 L185,160 L240,160 L240,130 L300,130 L300,175 L360,175 L360,100 L380,100 L380,70 L395,70 L395,100 L415,100 L415,155 L470,155 L470,120 L540,120 L540,165 L600,165 L600,110 L660,110 L660,150 L720,150 L720,95 L740,95 L740,60 L756,60 L756,95 L776,95 L776,150 L840,150 L840,125 L900,125 L900,168 L960,168 L960,105 L1020,105 L1020,150 L1080,150 L1080,120 L1140,120 L1140,165 L1200,165 L1200,100 L1260,100 L1260,150 L1320,150 L1320,130 L1380,130 L1380,160 L1440,160 L1440,220 Z"></path>
+  </svg>
+
+  <!-- lamppost -->
+  <div style="position:absolute; bottom:0; left:11%; display:flex; flex-direction:column; align-items:center;">
+    <div style="width:14px; height:16px; border-radius:6px 6px 2px 2px; background:radial-gradient(circle at 50% 40%, #fff3c4, #ffcf7a); box-shadow:0 0 28px 10px rgba(255,205,122,.5);"></div>
+    <div style="width:5px; height:170px; background:linear-gradient(#3a2a55,#241a3f);"></div>
+  </div>
+
+  <!-- invitation card -->
+  <div style="position:relative; z-index:5; width:100%; max-width:560px; padding:48px 44px 44px; border-radius:22px; background:linear-gradient(180deg, rgba(38,28,72,.72), rgba(30,22,58,.82)); border:1px solid rgba(255,214,138,.35); box-shadow:0 30px 80px -20px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12); backdrop-filter:blur(6px); animation:riseIn .9s ease-out both; text-align:center;">
+
+    <div style="font-family:'Cormorant Garamond',serif; letter-spacing:.42em; text-transform:uppercase; font-size:13px; color:#ffd98a; margin-bottom:14px;">City of Stars</div>
+
+    <div style="font-family:'Parisienne',cursive; font-size:30px; color:#ffe9c2; margin-bottom:6px; animation:glow 4s ease-in-out infinite;">Dear Fidan,</div>
+
+    <h1 style="font-size:44px; line-height:1.12; font-weight:600; color:#fff; margin-bottom:8px;">Would you join me<br>for a coffee?</h1>
+    <p style="font-size:19px; font-style:italic; color:#e7d8ff; opacity:.9; margin-bottom:30px;">Just us, a little café, and a conversation worth having.</p>
+
+    <!-- STATE: asking -->
+    <sc-if value="{{ isAsking }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <button onClick="{{ onAccept }}" style="font-family:'Cormorant Garamond',serif; font-size:20px; letter-spacing:.04em; padding:14px 34px; border:none; border-radius:999px; cursor:pointer; color:#2a1e4f; background:linear-gradient(180deg,#ffe6ad,#f4b46b); box-shadow:0 12px 28px -8px rgba(244,180,107,.7);" style-hover="transform:translateY(-2px); filter:brightness(1.05);">Yes, I'd love to ♡</button>
+        <button onClick="{{ onDecline }}" onMouseEnter="{{ onDodge }}" onMouseMove="{{ onDodge }}" onTouchStart="{{ onDodge }}" style="{{ noBtnStyle }}">{{ noLabel }}</button>
+      </div>
+    </sc-if>
+
+    <!-- STATE: picking a day -->
+    <sc-if value="{{ isPicking }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:riseIn .6s ease-out both;">
+        <p style="font-size:21px; color:#ffe9c2; font-style:italic; margin-bottom:18px;">Wonderful — which day suits you best?</p>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(88px,1fr)); gap:12px; margin-bottom:26px;">
+          <sc-for list="{{ days }}" as="d" hint-placeholder-count="5">
+            <button onClick="{{ d.onPick }}" style="{{ d.style }}">
+              <span style="display:block; font-size:13px; letter-spacing:.14em; text-transform:uppercase; opacity:.75;">{{ d.dow }}</span>
+              <span style="display:block; font-family:'Parisienne',cursive; font-size:30px; line-height:1.1;">{{ d.num }}</span>
+              <span style="display:block; font-size:12px; letter-spacing:.1em; opacity:.7;">August</span>
+            </button>
+          </sc-for>
+        </div>
+        <button onClick="{{ onConfirm }}" disabled="{{ confirmDisabled }}" style="{{ confirmStyle }}">{{ confirmLabel }}</button>
+      </div>
+    </sc-if>
+
+    <!-- STATE: confirmed -->
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:riseIn .7s ease-out both;">
+        <div style="font-family:'Parisienne',cursive; font-size:34px; color:#ffe9c2; margin-bottom:14px;">It's a date.</div>
+
+        <!-- ticket -->
+        <div style="display:flex; justify-content:center; margin-bottom:18px;">
+          <div style="position:relative; display:flex; width:100%; max-width:420px; text-align:left; border-radius:16px; overflow:hidden; background:linear-gradient(135deg,#fff6e6,#ffe9c9); box-shadow:0 20px 50px -18px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.6);">
+            <!-- stub -->
+            <div style="width:96px; flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; background:linear-gradient(180deg,#4a3a7a,#2a1e5c); color:#ffd98a; border-right:2px dashed rgba(255,255,255,.5);">
+              <span style="font-size:11px; letter-spacing:.28em; text-transform:uppercase; opacity:.8;">Aug</span>
+              <span style="font-family:'Parisienne',cursive; font-size:44px; line-height:.9; color:#fff;">{{ chosenNum }}</span>
+              <span style="font-size:11px; letter-spacing:.14em; text-transform:uppercase; opacity:.8;">{{ chosenDow }}</span>
+            </div>
+            <!-- body -->
+            <div style="flex:1; padding:16px 18px; color:#3a2a55;">
+              <div style="font-size:11px; letter-spacing:.32em; text-transform:uppercase; color:#b07a3a;">Baku</div>
+              <div style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:24px; line-height:1.1; margin:4px 0 6px;">Coffee with Fidan ☕</div>
+              <div style="font-size:15px; color:#6a5a45; line-height:1.5;">
+                <div><strong>When</strong> · {{ chosenDow }}, August {{ chosenNum }}</div>
+                <div><strong>With</strong> · someone who adores you</div>
+                <div><strong>Dress</strong> · a smile</div>
+              </div>
+              <div style="margin-top:8px; font-family:'Parisienne',cursive; font-size:19px; color:#8a5a86;">City of Stars ✦</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="font-size:18px; font-style:italic; color:#e7d8ff; opacity:.92; margin-bottom:14px;">I'll be counting the stars until then. — with love</p>
+
+        <sc-if value="{{ downloaded }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:14px; color:#ffd98a; letter-spacing:.05em; margin-bottom:6px;">✓ Your ticket has been saved</div>
+        </sc-if>
+        <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+          <button onClick="{{ onDownload }}" style="font-family:'Cormorant Garamond',serif; font-size:16px; padding:10px 24px; border:none; border-radius:999px; cursor:pointer; color:#2a1e4f; background:linear-gradient(180deg,#ffe6ad,#f4b46b); box-shadow:0 10px 22px -8px rgba(244,180,107,.7);">↓ Download ticket again</button>
+          <button onClick="{{ onReset }}" style="background:transparent; border:none; color:#ffd98a; cursor:pointer; font-family:'Cormorant Garamond',serif; font-size:16px; letter-spacing:.05em; text-decoration:underline; text-underline-offset:4px;">change the day</button>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { step: 'asking', teaseCount: 0, selected: null, dodge: { x: 0, y: 0 }, confetti: [] };
+
+  fireConfetti() {
+    const colors = ['#ffd98a', '#f4b46b', '#ffe6ad', '#ff9ec2', '#c9a9ff', '#fff5db', '#9ad0ff'];
+    const pieces = [];
+    // origins: top-center, top-left corner, top-right corner
+    const origins = [
+      { left: '50%', top: '10%', ang: [60, 120] },
+      { left: '2%', top: '2%', ang: [-30, 60] },
+      { left: '98%', top: '2%', ang: [120, 210] },
+    ];
+    let id = 0;
+    for (let o = 0; o < origins.length; o++) {
+      const org = origins[o];
+      const count = o === 0 ? 46 : 30;
+      for (let i = 0; i < count; i++) {
+        const deg = (org.ang[0] + Math.random() * (org.ang[1] - org.ang[0])) * Math.PI / 180;
+        const dist = 220 + Math.random() * 380;
+        const dx = Math.round(Math.cos(deg) * dist);
+        const dy = Math.round(Math.sin(deg) * dist + 180 + Math.random() * 260);
+        const size = 6 + Math.random() * 8;
+        const round = Math.random() > 0.5;
+        pieces.push({
+          id: id++,
+          style: [
+            'position:absolute',
+            `left:${org.left}`,
+            `top:${org.top}`,
+            `width:${size.toFixed(1)}px`,
+            `height:${(size * (round ? 1 : 0.5)).toFixed(1)}px`,
+            `background:${colors[Math.floor(Math.random() * colors.length)]}`,
+            round ? 'border-radius:50%' : 'border-radius:1px',
+            `--dx:${dx}px`, `--dy:${dy}px`,
+            `--rot:${Math.round((Math.random() * 6 - 3) * 360)}deg`,
+            `animation:conf ${(1.4 + Math.random() * 1.1).toFixed(2)}s cubic-bezier(.2,.6,.35,1) ${(Math.random() * .15).toFixed(2)}s forwards`,
+          ].join(';'),
+        });
+      }
+    }
+    this.setState({ confetti: pieces });
+  }
+
+  makeStars() {
+    const arr = [];
+    for (let i = 0; i < 46; i++) {
+      const s = (Math.random() * 2.4 + 1).toFixed(1);
+      arr.push({
+        top: (Math.random() * 66).toFixed(1) + '%',
+        left: (Math.random() * 100).toFixed(1) + '%',
+        size: s + 'px',
+        dur: (Math.random() * 3 + 2.5).toFixed(1) + 's',
+        delay: (Math.random() * 4).toFixed(1) + 's',
+      });
+    }
+    return arr;
+  }
+
+  componentWillMount() { this._stars = this.makeStars(); }
+
+  drawTicket(dow, num) {
+    const W = 900, H = 340;
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const ctx = c.getContext('2d');
+    const round = (x, y, w, h, r) => {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    };
+    // paper body
+    const g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, '#fff6e6'); g.addColorStop(1, '#ffe9c9');
+    round(20, 20, W - 40, H - 40, 28); ctx.fillStyle = g; ctx.fill();
+    // stub
+    ctx.save(); round(20, 20, 220, H - 40, 28); ctx.clip();
+    const sg = ctx.createLinearGradient(0, 0, 0, H);
+    sg.addColorStop(0, '#4a3a7a'); sg.addColorStop(1, '#2a1e5c');
+    ctx.fillStyle = sg; ctx.fillRect(20, 20, 220, H); ctx.restore();
+    // dashed divider
+    ctx.strokeStyle = 'rgba(120,90,150,.5)'; ctx.lineWidth = 3; ctx.setLineDash([10, 10]);
+    ctx.beginPath(); ctx.moveTo(240, 34); ctx.lineTo(240, H - 34); ctx.stroke(); ctx.setLineDash([]);
+    // stub text
+    ctx.textAlign = 'center'; ctx.fillStyle = '#ffd98a';
+    ctx.font = '600 22px Georgia'; ctx.fillText('AUG', 130, 110);
+    ctx.fillStyle = '#fff'; ctx.font = '700 100px Georgia'; ctx.fillText(String(num), 130, 210);
+    ctx.fillStyle = '#ffd98a'; ctx.font = '600 22px Georgia'; ctx.fillText(dow.toUpperCase(), 130, 250);
+    // body text
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#b07a3a'; ctx.font = '600 18px Georgia'; ctx.fillText('B A K U', 290, 92);
+    ctx.fillStyle = '#3a2a55'; ctx.font = '700 44px Georgia'; ctx.fillText('Coffee with Fidan', 290, 148);
+    ctx.fillStyle = '#6a5a45'; ctx.font = '22px Georgia';
+    ctx.fillText('When  ·  ' + dow + ', August ' + num, 290, 196);
+    ctx.fillText('With  ·  someone who adores you', 290, 228);
+    ctx.fillText('Dress  ·  a smile', 290, 260);
+    ctx.fillStyle = '#8a5a86'; ctx.font = 'italic 26px Georgia'; ctx.fillText('City of Stars ✦', 290, 300);
+    return c.toDataURL('image/png');
+  }
+
+  downloadTicket() {
+    const dl = this._dayList || [];
+    const chosen = dl.find((d) => d.num === this.state.selected);
+    if (!chosen) return;
+    const url = this.drawTicket(chosen.dow, chosen.num);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Coffee-with-Fidan-Aug-${chosen.num}.png`;
+    document.body.appendChild(a); a.click(); a.remove();
+    this.setState({ downloaded: true });
+  }
+
+  renderVals() {
+    const teases = [
+      "No, sorry",
+      "Are you sure? 🥺",
+      "Pretty please?",
+      "The coffee will be lonely…",
+      "Okay, one more chance ♡",
+    ];
+    const teaseCount = this.state.teaseCount;
+    const noLabel = teases[Math.min(teaseCount, teases.length - 1)];
+
+    const dayList = [
+      { dow: 'Mon', num: 3 }, { dow: 'Tue', num: 4 }, { dow: 'Wed', num: 5 },
+      { dow: 'Thu', num: 6 }, { dow: 'Fri', num: 7 },
+    ];
+    this._dayList = dayList;
+    const days = dayList.map((d) => {
+      const active = this.state.selected === d.num;
+      return {
+        ...d,
+        onPick: () => this.setState({ selected: d.num }),
+        style: [
+          "font-family:'Cormorant Garamond',serif",
+          "cursor:pointer",
+          "padding:12px 6px",
+          "border-radius:14px",
+          "transition:all .2s ease",
+          active
+            ? "color:#2a1e4f; background:linear-gradient(180deg,#ffe6ad,#f4b46b); border:1px solid rgba(255,214,138,.9); box-shadow:0 10px 24px -10px rgba(244,180,107,.8); transform:translateY(-2px)"
+            : "color:#f3e9ff; background:rgba(255,255,255,.06); border:1px solid rgba(255,214,138,.28)",
+        ].join(';'),
+      };
+    });
+
+    const chosen = dayList.find((d) => d.num === this.state.selected);
+    const confirmDisabled = this.state.selected == null;
+
+    return {
+      stars: this._stars,
+      isAsking: this.state.step === 'asking',
+      isPicking: this.state.step === 'picking',
+      isDone: this.state.step === 'done',
+      noLabel,
+      noBtnStyle: `font-family:'Cormorant Garamond',serif; font-size:20px; letter-spacing:.04em; padding:14px 30px; border-radius:999px; cursor:pointer; color:#efe6ff; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.28); transition:transform .18s cubic-bezier(.34,1.56,.64,1); transform:translate(${this.state.dodge.x}px, ${this.state.dodge.y}px);`,
+      confetti: this.state.confetti,
+      onAccept: () => { this.fireConfetti(); this.setState({ step: 'picking' }); },
+      onDecline: () => this.setState((s) => ({ teaseCount: s.teaseCount + 1 })),
+      onDodge: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        const x = (Math.random() * 2 - 1) * 150;
+        const y = (Math.random() * 2 - 1) * 90;
+        this.setState({ dodge: { x: Math.round(x), y: Math.round(y) } });
+      },
+      days,
+      confirmDisabled,
+      confirmLabel: confirmDisabled ? 'Pick a day above' : 'Confirm our date ♡',
+      confirmStyle: [
+        "font-family:'Cormorant Garamond',serif",
+        "font-size:20px",
+        "letter-spacing:.04em",
+        "padding:14px 40px",
+        "border:none",
+        "border-radius:999px",
+        "transition:all .2s ease",
+        confirmDisabled
+          ? "color:rgba(255,255,255,.5); background:rgba(255,255,255,.06); cursor:not-allowed"
+          : "cursor:pointer; color:#2a1e4f; background:linear-gradient(180deg,#ffe6ad,#f4b46b); box-shadow:0 12px 28px -8px rgba(244,180,107,.7)",
+      ].join(';'),
+      onConfirm: () => {
+        if (this.state.selected != null) {
+          this.setState({ step: 'done', downloaded: false });
+          setTimeout(() => this.downloadTicket(), 700);
+        }
+      },
+      onDownload: () => this.downloadTicket(),
+      downloaded: !!this.state.downloaded,
+      chosenDow: chosen ? chosen.dow : '',
+      chosenNum: chosen ? chosen.num : '',
+      onReset: () => this.setState({ step: 'picking', downloaded: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>
